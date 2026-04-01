@@ -434,7 +434,7 @@ const Login = () => {
                         fontSize: { xs: "15px", B370: "16px" },
                       }}
                     >
-                      Sign Up
+                      Sign in
                     </Typography>
                   </Typography>
                 </Box>

@@ -1,27 +1,26 @@
 import "./App.css";
-import Login from "./Clients/Authentication/Login";
-import Sign_up from "./Clients/Authentication/Sign_up";
+import Login from "./Pages/Clients/Authentication/Login";
+import Sign_up from "./Pages/Clients/Authentication/Sign_up";
 import { Route, Switch } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom/cjs/react-router-dom";
 
-import Navbar from "./Clients/Components/Navbar";
-import Footer from "./Clients/Components/Footer";
-import HomeSec from "./Clients/Home/HomeSec";
-import DecorRental from "./Clients/Quick Links/Decor_rental";
-import FAQ from "./Clients/Quick Links/FAQ";
-import AboutUs from "./Clients/Quick Links/About_Us";
-import Contact_us from "./Clients/Quick Links/Contact_us";
-import User_profile from "./Clients/Components/User_profile";
-import RentItem from "./Clients/Components/RentItem";
-import Dashboard from "./Admin/Pages/Dashboard";
-import Sidebar from "./Admin/Layout/Sidebar";
-import AdminLayout from "./Admin/Layout/AdminLayout";
+import Navbar from "./Pages/Clients/Components/Navbar";
+import Footer from "./Pages/Clients/Components/Footer";
+import HomeSec from "./Pages/Clients/Home/HomeSec";
+import DecorRental from "./Pages/Clients/Quick Links/Decor_rental";
+import FAQ from "./Pages/Clients/Quick Links/FAQ";
+import AboutUs from "./Pages/Clients/Quick Links/About_Us";
+import Contact_us from "./Pages/Clients/Quick Links/Contact_us";
+import User_profile from "./Pages/Clients/Components/User_profile";
+import RentItem from "./Pages/Clients/Components/RentItem";
+import Dashboard from "./Pages/Admin/AdminPages/Dashboard";
+import Sidebar from "./Pages/Admin/Layout/Sidebar";
+import AdminLayout from "./Pages/Admin/Layout/AdminLayout";
 
 function App() {
   return (
     <div className="App">
-      <AdminLayout></AdminLayout>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Switch>
           <Route path="/Login">
             <Login></Login>
@@ -29,6 +28,10 @@ function App() {
 
           <Route path="/Sign_up">
             <Sign_up></Sign_up>
+          </Route>
+
+          <Route path="/admin">
+            <AdminLayout></AdminLayout>
           </Route>
 
           <Route path="/profile">
@@ -65,7 +68,7 @@ function App() {
             <Footer></Footer>
           </Route>
         </Switch>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }
