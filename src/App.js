@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Login from "./Clients/Authentication/Login";
 import Sign_up from "./Clients/Authentication/Sign_up";
