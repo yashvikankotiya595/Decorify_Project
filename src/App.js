@@ -13,11 +13,15 @@ import AboutUs from "./Clients/Quick Links/About_Us";
 import Contact_us from "./Clients/Quick Links/Contact_us";
 import User_profile from "./Clients/Components/User_profile";
 import RentItem from "./Clients/Components/RentItem";
+import Dashboard from "./Admin/Pages/Dashboard";
+import Sidebar from "./Admin/Layout/Sidebar";
+import AdminLayout from "./Admin/Layout/AdminLayout";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <AdminLayout></AdminLayout>
+      {/* <BrowserRouter>
         <Switch>
           <Route path="/Login">
             <Login></Login>
@@ -61,7 +65,7 @@ function App() {
             <Footer></Footer>
           </Route>
         </Switch>
-      </BrowserRouter>
+      </BrowserRouter> */}
     </div>
   );
 }

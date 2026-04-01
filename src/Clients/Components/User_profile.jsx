@@ -580,7 +580,7 @@ function WishlistSection() {
                   {item.name}
                 </Typography>
                 <Typography
-                  sx={{ fontSize: 15, fontWeight: 500, color: C.btn, mt: 0.3 }}
+                  sx={{ fontSize: 15, fontWeight: 500, color: C.btn, mt: 0.3,textAlign:"left" }}
                 >
                   {item.price}
                 </Typography>
@@ -604,13 +604,15 @@ function WishlistSection() {
                 variant="contained"
                 sx={{
                   background: C.btn,
-                  fontSize: 12,
+                  fontSize: 11,
                   fontWeight: 600,
                   letterSpacing: 1,
                   textTransform: "uppercase",
                   borderRadius: "6px",
-                  px: 1.5,
-                  py: 1.0,
+                  // px: 1.5,
+                  // py: 1.0,
+
+              
                   "&:hover": { background: C.slate },
                 }}
               >
