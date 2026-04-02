@@ -26,7 +26,7 @@ const products = [
     name: "Floral Bajot",
     category: "Wedding",
     price: 1200,
-    image: "/bajoth.png",
+    image: "/W_bajoth.png",
     tag: "Popular",
   },
   {
@@ -51,7 +51,7 @@ const products = [
     name: "Banner Stand",
     category: "Corporate",
     price: 600,
-    image: "/banner_stand.png",
+    image: "/B_banner_stand.png",
     tag: "",
   },
   {
