@@ -371,6 +371,7 @@ export default function Contact_us() {
                     borderRadius: "14px",
                     p: 3,
                     display: "flex",
+                    textAlign:"left",
                     gap: 2.5,
                     alignItems: "flex-start",
                     transition: "all 0.3s",

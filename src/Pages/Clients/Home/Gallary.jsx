@@ -30,7 +30,7 @@ const border = `1px solid ${slate}44`;
 const images = [
   {
     id: 1,
-    src: "/bajoth.png",
+    src: "/W_bajoth.png",
     title: "Elegant Wedding",
     category: "Wedding",
     span: { xs: "span 2", md: "span 2" },
@@ -54,7 +54,7 @@ const images = [
   },
   {
     id: 4,
-    src: "/banner_stand.png",
+    src: "/B_banner_stand.png",
     title: "Banner Stand",
     category: "Corporate",
     span: { xs: "span 2", md: "span 2" },
@@ -224,7 +224,7 @@ const Gallary = () => {
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: { xs: "1fr 1fr", md: "repeat(3, 1fr)" }, // ← columns અહીં બદલો
+              gridTemplateColumns: { xs: "1fr", sm: "1fr", md: "repeat(3, 1fr)" },
               gap: 2,
             }}
           >
@@ -233,8 +233,8 @@ const Gallary = () => {
                 key={img.id}
                 onClick={() => openModal(idx)}
                 sx={{
-                  gridColumn: img.span, // ← span અહીં images array માં બદલો
-                  height: img.height, // ← height અહીં images array માં બદલો
+                   gridColumn: { xs: "span 1", sm: "span 1", md: img.span },
+                 height: img.height,
                   borderRadius: "4px",
                   overflow: "hidden",
                   position: "relative",

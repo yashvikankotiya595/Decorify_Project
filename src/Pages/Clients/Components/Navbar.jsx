@@ -1,298 +1,354 @@
-import React, { useState, useEffect } from "react"; // ✅ single import
-
+import React, { useState, useEffect } from "react";
 import Fab from "@mui/material/Fab";
 import FeedbackIcon from "@mui/icons-material/Feedback";
-import { Link,useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import {
-  AppBar,
-  Toolbar,
-  Box,
-  Typography,
-  Button,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  useMediaQuery,
-  useTheme,
-  Container,
+  AppBar, Toolbar, Box, Typography, Button, IconButton,
+  Drawer, List, ListItem, ListItemText, Divider,
+  useMediaQuery, useTheme, Container,
+  Avatar, Menu, MenuItem,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
-import Feedback from "./Feedback";
-import MenuIcon from "@mui/icons-material/Menu";
+import Feedback   from "./Feedback";
+import MenuIcon   from "@mui/icons-material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 const primaryColor = "#a17a7a";
-const fontFamily = "'Cormorant Garamond', serif";
-const subFamily = "'Montserrat', sans-serif";
-const bgColor = "#F8F3F1";
-const darkColor = "#2F4F4F";
-const mauve = "#735f5f";
-const slate = "#735f5f";
-const subcolor = "#C49A9A";
+const fontFamily   = "'Cormorant Garamond', serif";
+const subFamily    = "'Montserrat', sans-serif";
+const bgColor      = "#F8F3F1";
+const darkColor    = "#2F4F4F";
+const mauve        = "#735f5f";
+const slate        = "#735f5f";
+const subcolor     = "#C49A9A";
 
 const navItems = [
-  { label: "HOME", path: "/" },
+  { label: "HOME",         path: "/" },
   { label: "DECOR RENTAL", path: "/decorRental" },
-  { label: "FAQ", path: "/faq" },
-  { label: "ABOUT US", path: "/about" },
-  { label: "CONTACT US", path: "/contact" },
+  { label: "FAQ",          path: "/faq" },
+  { label: "ABOUT US",     path: "/about" },
+  { label: "CONTACT US",   path: "/contact" },
 ];
 
-export default function Header() {
+// ── localStorage thi current auth state vanco ──
+const readAuth = () => ({
+  loggedIn:  localStorage.getItem("isLoggedIn") === "true",
+  userName:  localStorage.getItem("userName")   || "",
+  userEmail: localStorage.getItem("userEmail")  || "",
+});
+
+export default function Navbar() {
   const theme2 = createTheme({
     breakpoints: {
-      values: {
-        xs: 0,
-        sm: 600,
-        md: 900,
-        lg: 1200,
-        xl: 1536,
-        B400: 400,
-      },
+      values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536, B400: 400 },
     },
   });
-  const [feedbackOpen, setFeedbackOpen] = useState(false);
-  const theme = useTheme();
+
+  const [feedbackOpen,  setFeedbackOpen]  = useState(false);
+  const [drawerOpen,    setDrawerOpen]    = useState(false);
+  const [showFab,       setShowFab]       = useState(false);
+  const [profileAnchor, setProfileAnchor] = useState(null);
+  const [auth,          setAuth]          = useState(readAuth); // ← initial read
+
+  const theme    = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const location = useLocation();
+  const history  = useHistory();
 
-  // ✅ Fab state + ref
-  const [showFab, setShowFab] = useState(false);
+  // ── Login/Logout thay tyare re-read karo ──
+  useEffect(() => {
+    const sync = () => setAuth(readAuth()); // localStorage thi fresh read
 
-useEffect(() => {
-  const handleScroll = () => {
-    setShowFab(window.scrollY > 300);
+    // Login.jsx dispatch kare che "authChange"
+    window.addEventListener("authChange", sync);
+    // Other tab mate "storage" event
+    window.addEventListener("storage", sync);
+
+    return () => {
+      window.removeEventListener("authChange", sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
+
+  // ── Fab scroll ──
+  useEffect(() => {
+    const onScroll = () => setShowFab(window.scrollY > 300);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // ── Avatar letter: userName no pehlo letter uppercase ──
+  // "yashvi@gmail.com" thi login karyu hoy to userName = "Yashvi" → letter = "Y"
+  const avatarLetter = auth.userName
+    ? auth.userName.charAt(0).toUpperCase()
+    : "";
+
+  // ── Logout ──
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userEmail");
+    setProfileAnchor(null);
+    setDrawerOpen(false);
+    setAuth({ loggedIn: false, userName: "", userEmail: "" });
+    window.dispatchEvent(new Event("authChange"));
+    history.push("/");
   };
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
 
-const location = useLocation();
-
+  // ── Nav button style ──
   const navButtonSx = (path) => ({
-    subFamily,
-    fontSize: "13px",
-    fontWeight: 500,
+    fontFamily: subFamily,
+    fontSize: "13px", fontWeight: 500,
     color: location.pathname === path ? primaryColor : mauve,
-    letterSpacing: "0.14em",
-    textTransform: "uppercase",
-    px: 1.5,
-    py: 1,
-    minWidth: "auto",
-    borderRadius: 0,
+    letterSpacing: "0.14em", textTransform: "uppercase",
+    px: 1.5, py: 1, minWidth: "auto", borderRadius: 0,
     position: "relative",
     "&::after": {
-      content: '""',
-      position: "absolute",
-      bottom: 4,
-      left: "50%",
+      content: '""', position: "absolute",
+      bottom: 4, left: "50%",
       transform: "translateX(-50%) scaleX(0)",
-      width: "60%",
-      height: "1.5px",
+      width: "60%", height: "1.5px",
       backgroundColor: primaryColor,
       transition: "transform 0.25s ease",
     },
-    "&:hover": {
-      backgroundColor: "transparent",
-      color: primaryColor,
-    },
-    "&:hover::after": {
-      transform: "translateX(-50%) scaleX(1)",
-    },
+    "&:hover": { backgroundColor: "transparent", color: primaryColor },
+    "&:hover::after": { transform: "translateX(-50%) scaleX(1)" },
   });
 
   return (
     <>
       <ThemeProvider theme={theme2}>
         <AppBar
-          position="sticky"
-          elevation={0}
-          sx={{
-            backgroundColor: bgColor,
-            borderBottom: `1px solid #e8e0e0`,
-            color: darkColor,
-            height: "70px",
-          }}
+          position="sticky" elevation={0}
+          sx={{ backgroundColor: bgColor, borderBottom: "1px solid #e8e0e0", color: darkColor, height: "70px" }}
         >
           <Container maxWidth="xl" disableGutters>
-            <Toolbar
-              sx={{
-                justifyContent: "space-between",
-                minHeight: "70px !important",
-              }}
-            >
+            <Toolbar sx={{ justifyContent: "space-between", minHeight: "70px !important" }}>
+
               {/* ── Logo ── */}
               <Typography
-        component={Link}
-                  to="/"
+                component={Link} to="/"
                 sx={{
-                  textDecoration:"none",
-                  fontFamily,
-                  fontWeight: 400,
+                  textDecoration: "none", fontFamily, fontWeight: 400,
                   fontSize: { xs: "23px", B400: "27px" },
-                  color: mauve,
-                  letterSpacing: "4px",
-                  userSelect: "none",
-                  textTransform: "uppercase",
-                  display: "flex",
-                  justifyContent: "start",
+                  color: mauve, letterSpacing: "4px",
+                  userSelect: "none", textTransform: "uppercase",
                 }}
               >
                 Decorify
               </Typography>
 
-              {/* ── Center Nav ── */}
+              {/* ── Center Nav (desktop only) ── */}
               {!isMobile && (
                 <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                   {navItems.map((item) => (
-                    <Button 
-                    key={item.label}
-                    component={Link}
-                    to={item.path}
-                    sx={navButtonSx(item.path)}>
+                    <Button key={item.label} component={Link} to={item.path} sx={navButtonSx(item.path)}>
                       {item.label}
                     </Button>
                   ))}
                 </Box>
               )}
 
-              {/* ── Right: Login Button ── */}
-              <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              {/* ── Right side ── */}
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 {!isMobile ? (
-                  <Button
-                    component={Link}
-                    to="/login"
-                    sx={{
-                      subFamily,
-                      fontSize: "14px",
-                      fontWeight: 600,
-                      letterSpacing: "1.5px",
-                      textTransform: "uppercase",
-                      color: "#fff",
-                      backgroundColor: primaryColor,
-                      borderRadius: "5px",
-                      px: 3,
-                      py: 1,
-                      "&:hover": { backgroundColor: primaryColor },
-                      transition: "background 0.25s ease",
-                    }}
-                  >
-                    Login
-                  </Button>
+                  auth.loggedIn ? (
+                    <>
+                      {/* ── Desktop: Avatar ── */}
+                      <Avatar
+                        onClick={(e) => setProfileAnchor(e.currentTarget)}
+                        sx={{
+                          width: 40, height: 40,
+                          backgroundColor: primaryColor,
+                          fontFamily: subFamily, fontSize: 16, fontWeight: 700,
+                          cursor: "pointer",
+                          boxShadow: `0 4px 16px ${subcolor}55`,
+                          border: `2px solid ${subcolor}`,
+                          transition: "box-shadow 0.2s, border-color 0.2s",
+                          "&:hover": {
+                            boxShadow: `0 6px 20px ${primaryColor}66`,
+                            borderColor: primaryColor,
+                          },
+                        }}
+                      >
+                        {avatarLetter}
+                      </Avatar>
+
+                      {/* ── Profile Dropdown ── */}
+                      <Menu
+                        anchorEl={profileAnchor}
+                        open={Boolean(profileAnchor)}
+                        onClose={() => setProfileAnchor(null)}
+                        transformOrigin={{ horizontal: "right", vertical: "top" }}
+                        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                        PaperProps={{
+                          sx: {
+                            mt: 1.2, borderRadius: "14px", minWidth: 220,
+                            boxShadow: "0 8px 36px rgba(161,122,122,0.18)",
+                            overflow: "hidden",
+                          },
+                        }}
+                      >
+                        {/* User info */}
+                        <Box sx={{ px: 2.5, py: 2, textAlign: "center", borderBottom: "1px solid #f0e8e8" }}>
+                          <Avatar sx={{
+                            width: 52, height: 52, mx: "auto", mb: 1,
+                            backgroundColor: primaryColor,
+                            fontFamily: subFamily, fontSize: 22, fontWeight: 700,
+                            boxShadow: `0 4px 16px ${subcolor}55`,
+                          }}>
+                            {avatarLetter}
+                          </Avatar>
+                          <Typography sx={{ fontFamily: subFamily, fontSize: 14, fontWeight: 700, color: mauve, lineHeight: 1.2 }}>
+                            {auth.userName}
+                          </Typography>
+                          <Typography sx={{ fontFamily: subFamily, fontSize: 11, color: "#9a8888", mt: 0.3, wordBreak: "break-all" }}>
+                            {auth.userEmail}
+                          </Typography>
+                        </Box>
+
+                        {/* My Profile */}
+                        <MenuItem
+                          component={Link} to="/profile"
+                          onClick={() => setProfileAnchor(null)}
+                          sx={{ fontFamily: subFamily, fontSize: 13, fontWeight: 500, color: mauve, gap: 1.5, py: 1.4, px: 2.5, "&:hover": { background: "#f8f3f1" } }}
+                        >
+                          <PersonIcon sx={{ fontSize: 18, color: primaryColor }} />
+                          My Profile
+                        </MenuItem>
+
+                        <Divider sx={{ borderColor: "#f0e8e8" }} />
+
+                        {/* Logout */}
+                        <MenuItem
+                          onClick={handleLogout}
+                          sx={{ fontFamily: subFamily, fontSize: 13, fontWeight: 500, color: "#c03030", gap: 1.5, py: 1.4, px: 2.5, "&:hover": { background: "#fce8e8" } }}
+                        >
+                          <LogoutIcon sx={{ fontSize: 18 }} />
+                          Logout
+                        </MenuItem>
+                      </Menu>
+                    </>
+                  ) : (
+                    // ── Desktop: Login button ──
+                    <Button
+                      component={Link} to="/login"
+                      sx={{
+                        fontFamily: subFamily, fontSize: "14px", fontWeight: 600,
+                        letterSpacing: "1.5px", textTransform: "uppercase",
+                        color: "#fff", backgroundColor: primaryColor,
+                        borderRadius: "5px", px: 3, py: 1,
+                        "&:hover": { backgroundColor: "#8a6060" },
+                        transition: "background 0.25s ease",
+                      }}
+                    >
+                      Login
+                    </Button>
+                  )
                 ) : (
-                  <IconButton
-                    onClick={() => setDrawerOpen(true)}
-                    sx={{ color: darkColor }}
-                  >
+                  // ── Mobile: hamburger ──
+                  <IconButton onClick={() => setDrawerOpen(true)} sx={{ color: darkColor }}>
                     <MenuIcon />
                   </IconButton>
                 )}
               </Box>
+
             </Toolbar>
           </Container>
         </AppBar>
 
         {/* ── Mobile Drawer ── */}
-        <Drawer
-          anchor="right"
-          open={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
-        >
+        <Drawer anchor="right" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
           <Box sx={{ width: 260, pt: 3 }}>
             <List>
               {navItems.map((item) => (
-                <ListItem
-                  button
-                  key={item.label}
-                  component={Link}
-                  to={item.path}
-                  onClick={() => setDrawerOpen(false)}
-                >
+                <ListItem button key={item.label} component={Link} to={item.path} onClick={() => setDrawerOpen(false)}>
                   <ListItemText
                     primary={item.label}
-                    primaryTypographyProps={{
-                      subFamily,
-                      fontSize: "13px",
-                      fontWeight: 500,
-                      color: mauve,
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                    }}
+                    primaryTypographyProps={{ fontFamily: subFamily, fontSize: "13px", fontWeight: 500, color: mauve, letterSpacing: "0.14em", textTransform: "uppercase" }}
                   />
                 </ListItem>
               ))}
             </List>
             <Divider sx={{ borderColor: "#f0e8e8" }} />
             <Box sx={{ px: 3, pt: 2 }}>
-              <Button
-                fullWidth
-                sx={{
-                  subFamily,
-                  fontSize: "0.72rem",
-                  fontWeight: 600,
-                  letterSpacing: "1.5px",
-                  textTransform: "uppercase",
-                  color: "#fff",
-                  backgroundColor: primaryColor,
-                  borderRadius: "2px",
-                  py: 1.2,
-                  "&:hover": { backgroundColor: primaryColor },
-                  transition: "background 0.25s ease",
-                }}
-              >
-                Login
-              </Button>
+              {auth.loggedIn ? (
+                <>
+                  {/* Avatar + name + email */}
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, mb: 2, p: 1.5, background: "#f8f3f1", borderRadius: 2 }}>
+                    <Avatar sx={{ width: 40, height: 40, backgroundColor: primaryColor, fontFamily: subFamily, fontSize: 16, fontWeight: 700 }}>
+                      {avatarLetter}
+                    </Avatar>
+                    <Box>
+                      <Typography sx={{ fontFamily: subFamily, fontSize: 13, fontWeight: 700, color: mauve }}>
+                        {auth.userName}
+                      </Typography>
+                      <Typography sx={{ fontFamily: subFamily, fontSize: 10, color: "#9a8888", wordBreak: "break-all" }}>
+                        {auth.userEmail}
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  {/* My Profile */}
+                  <Button
+                    component={Link} to="/profile"
+                    onClick={() => setDrawerOpen(false)}
+                    fullWidth startIcon={<PersonIcon sx={{ fontSize: 16 }} />}
+                    sx={{ fontFamily: subFamily, fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", color: mauve, border: `1px solid ${subcolor}55`, borderRadius: "6px", py: 1, mb: 1, justifyContent: "flex-start", px: 2, "&:hover": { background: "#f8f3f1" } }}
+                  >
+                    My Profile
+                  </Button>
+
+                  {/* Logout */}
+                  <Button
+                    onClick={handleLogout}
+                    fullWidth startIcon={<LogoutIcon sx={{ fontSize: 16 }} />}
+                    sx={{ fontFamily: subFamily, fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1px", textTransform: "uppercase", color: "#fff", backgroundColor: "#c03030", borderRadius: "6px", py: 1, justifyContent: "flex-start", px: 2, "&:hover": { backgroundColor: "#a02020" } }}
+                  >
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  component={Link} to="/login"
+                  onClick={() => setDrawerOpen(false)}
+                  fullWidth
+                  sx={{ fontFamily: subFamily, fontSize: "0.72rem", fontWeight: 600, letterSpacing: "1.5px", textTransform: "uppercase", color: "#fff", backgroundColor: primaryColor, borderRadius: "2px", py: 1.2, "&:hover": { backgroundColor: "#8a6060" } }}
+                >
+                  Login
+                </Button>
+              )}
             </Box>
           </Box>
         </Drawer>
       </ThemeProvider>
-      {/* <HomeSec></HomeSec> */}
 
-      {/* ✅ Animated Fab */}
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 20,
-          right: 32,
-          zIndex: 999, 
-          opacity: showFab ? 1 : 0,
-          transform: showFab
-            ? "scale(1) translateY(0)"
-            : "scale(0.6) translateY(20px)",
-          transition:
-            "opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)",
-          pointerEvents: showFab ? "auto" : "none",
-        }}
-      >
-        {/* Main Fab */}
+      {/* ── Animated FAB ── */}
+      <Box sx={{
+        position: "fixed", bottom: 20, right: 32, zIndex: 999,
+        opacity: showFab ? 1 : 0,
+        transform: showFab ? "scale(1) translateY(0)" : "scale(0.6) translateY(20px)",
+        transition: "opacity 0.4s ease, transform 0.4s cubic-bezier(0.34,1.56,0.64,1)",
+        pointerEvents: showFab ? "auto" : "none",
+      }}>
         <Fab
           onClick={() => setFeedbackOpen(true)}
           sx={{
-            background: slate,
-            padding: 0.5,
-            color: "#fff",
-             
+            background: slate, padding: 0.5, color: "#fff",
             boxShadow: `0 8px 32px ${subcolor}55`,
-
             "@keyframes bounceFloat": {
               "0%, 100%": { transform: "translateY(0px)" },
-              "50%": { transform: "translateY(-10px)" },
+              "50%":      { transform: "translateY(-10px)" },
             },
             animation: "bounceFloat 2s ease-in-out infinite",
-
-            "&:hover": {
-              background: slate,
-              animationPlayState: "paused", // hover પર animation pause
-            },
-            transition: "background 0.3s",
+            "&:hover": { background: slate, animationPlayState: "paused" },
           }}
         >
           <FeedbackIcon />
         </Fab>
       </Box>
+
       <Feedback open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
     </>
   );

@@ -14,8 +14,10 @@ import {
   TableRow,
   useMediaQuery,
   createTheme,
-  InputAdornment
+  InputAdornment,
+  Button,
 } from "@mui/material";
+
 import { ThemeProvider } from "@mui/material/styles";
 import { Search } from "@mui/icons-material";
 
@@ -30,50 +32,10 @@ const slate = "#a17a7a";
 const muted = "#735f5f";
 
 // ── Data ──
-const STAT_CARDS = [
-  {
-    label: "Total Revenue",
-    value: "₹2.4L",
-    sub: "12% this month",
-    trend: "up",
-    accentColor: "#C49A9A",
-    iconBg: "rgba(196,154,154,0.12)",
-    iconColor: "#C49A9A",
-    icon: <CurrencyRupeeRoundedIcon sx={{ fontSize: 17 }} />,
-  },
-  {
-    label: "Total Orders",
-    value: "120",
-    sub: "5 today",
-    trend: "up",
-    accentColor: "#7090c0",
-    iconBg: "rgba(100,130,200,0.1)",
-    iconColor: "#5a80c0",
-    icon: <AssignmentRoundedIcon sx={{ fontSize: 17 }} />,
-  },
-  {
-    label: "Total Products",
-    value: "85",
-    sub: "6 categories · 3 low stock",
-    accentColor: "#80b870",
-    iconBg: "rgba(100,180,100,0.1)",
-    iconColor: "#60a050",
-    icon: <Inventory2RoundedIcon sx={{ fontSize: 17 }} />,
-  },
-  {
-    label: "Pending Returns",
-    value: "4",
-    sub: "3 need inspection",
-    trend: "down",
-    accentColor: "#d08060",
-    iconBg: "rgba(210,130,80,0.12)",
-    iconColor: "#c07050",
-    icon: <ReplayRoundedIcon sx={{ fontSize: 17 }} />,
-  },
-];
 
 const BOOKINGS = [
   {
+    bookingId:"#BK0120",
     name: "Riya Patel",
     init: "R",
     clr: ["#6a3a3a", "#c49a9a"],
@@ -84,6 +46,7 @@ const BOOKINGS = [
     sClr: { bg: "rgba(90,154,110,0.14)", tx: "#2e7050" },
   },
   {
+    bookingId:"#BK0120",
     name: "Mehul Shah",
     init: "M",
     clr: ["#2a4a6a", "#5a80a0"],
@@ -94,6 +57,7 @@ const BOOKINGS = [
     sClr: { bg: "rgba(196,154,154,0.15)", tx: "#7a4a4a" },
   },
   {
+    bookingId:"#BK0120",
     name: "Priya Desai",
     init: "P",
     clr: ["#4a2a6a", "#9a70c0"],
@@ -104,6 +68,7 @@ const BOOKINGS = [
     sClr: { bg: "rgba(120,90,180,0.13)", tx: "#5a3a9a" },
   },
   {
+    bookingId:"#BK0120",
     name: "Ankit Modi",
     init: "A",
     clr: ["#3d2a2a", "#6b5050"],
@@ -114,6 +79,7 @@ const BOOKINGS = [
     sClr: { bg: "rgba(80,120,200,0.13)", tx: "#3050a0" },
   },
   {
+    bookingId:"#BK0120",
     name: "Kavita Joshi",
     init: "K",
     clr: ["#3a5a2a", "#80b060"],
@@ -125,7 +91,7 @@ const BOOKINGS = [
   },
 ];
 
-export default function Dashboard() {
+export default function Orders() {
   const [search, setSearch] = useState("");
 
   const theme = createTheme({
@@ -147,140 +113,31 @@ export default function Dashboard() {
     <ThemeProvider theme={theme}>
       <Box>
         {/* ── Page Header ── */}
-        <Box
+        <Typography
           sx={{
-            display: "flex",
-            flexDirection: {
-              xs: "column", // 👈 mobile (below 600px)
-              sm: "row", // 👈 above 600px
-            },
-
-            alignItems: {
-              xs: "flex-start", // 👈 left align mobile
-              sm: "center",
-            },
-            justifyContent: "space-between",
-            mb: 2.75,
-            flexWrap: "wrap",
-            gap: 1.5,
+            fontFamily: fontSerif,
+            fontSize: 34,
+            fontWeight: 600,
+            color: slate,
+            lineHeight: 1,
+            textAlign: "left",
           }}
         >
-          <Box>
-            <Typography
-              sx={{
-                fontFamily: fontSerif,
-                fontSize: 22,
-                fontWeight: 600,
-                color: slate,
-                textAlign: "left",
-              }}
-            >
-              Welcome back, Admin
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: 12,
-                color: muted,
-                mt: 0.25,
-                fontFamily: "'Montserrat',sans-serif",
-                textAlign: "justify",
-              }}
-            >
-              Here's what's happening with your business today.
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* ── Stat Cards (Mapped directly) ── */}
-        <Grid container spacing={2} sx={{ mb: 2.75 }}>
-          {STAT_CARDS.map((card, index) => (
-            <Grid item size={{ xs: 12, sm: 6, md: 3 }} key={index}>
-              <Card
-                elevation={0}
-                sx={{
-                  border: "1px solid rgba(196,154,154,0.22)",
-                  borderRadius: "14px",
-                  p: "16px",
-
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center", // vertical center
-                  alignItems: "center", // horizontal center
-
-                  position: "relative",
-                  overflow: "hidden",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                  "&:hover": {
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 8px 32px rgba(61,42,42,0.12)",
-                  },
-                  "&::before": {
-                    content: '""',
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    height: 4,
-                    background: card.accentColor,
-                  },
-                }}
-              >
-                <CardContent
-                  sx={{
-                    p: "0 !important",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center", // 👈 center
-                    justifyContent: "center",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      borderRadius: "9px",
-                      background: card.iconBg,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: card.iconColor,
-                      mb: "10px",
-                    }}
-                  >
-                    {card.icon}
-                  </Box>
-
-                  <Typography
-                    sx={{
-                      fontSize: 10,
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      color: slate,
-                      mb: 1,
-                      fontFamily: fontSans,
-                      textAlign: "center", // 👈 center text
-                    }}
-                  >
-                    {card.label}
-                  </Typography>
-
-                  <Typography
-                    sx={{
-                      fontFamily: fontSerif,
-                      fontSize: 30,
-                      fontWeight: 600,
-                      color: muted,
-                      lineHeight: 1,
-                      textAlign: "center", // 👈 center text
-                    }}
-                  >
-                    {card.value}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+          Orders
+        </Typography>
+        <Typography
+          sx={{
+            fontFamily: fontSans,
+            fontSize: 12,
+            color: muted,
+            textAlign: "left",
+            letterSpacing: 1,
+            mt: 0.5,
+            mb: 3.5,
+          }}
+        >
+          Track all customer bookings and manage their status
+        </Typography>
 
         {/* ── Main Grid ── */}
         <Grid container spacing={2.25}>
@@ -315,7 +172,7 @@ export default function Dashboard() {
                     color: muted,
                   }}
                 >
-                  Recent Bookings
+                  All Bookings
                 </Typography>
 
                 {/* 🔍 Search Bar */}
@@ -323,10 +180,9 @@ export default function Dashboard() {
                   sx={{
                     border: "1px solid rgba(196,154,154,0.3)",
                     borderRadius: "8px",
-                   
+
                     display: "flex",
                     alignItems: "center",
-                    
                   }}
                 >
                   <TextField
@@ -348,7 +204,7 @@ export default function Dashboard() {
                         fontSize: 13,
                         borderRadius: "8px",
                         background: "#F5EFEc",
-                        "& fieldset": { borderColor: "#F5EFEc"},
+                        "& fieldset": { borderColor: "#F5EFEc" },
                         "&:hover fieldset": { borderColor: slate },
                         "&.Mui-focused fieldset": {
                           borderColor: slate,
@@ -368,6 +224,15 @@ export default function Dashboard() {
                 <Table>
                   <TableHead>
                     <TableRow>
+                        <TableCell
+                        sx={{
+                          color: muted,
+                          fontWeight: 600,
+                        }}
+                      >
+                        Booking Id
+                      </TableCell>
+                         
                       <TableCell
                         sx={{
                           color: muted,
@@ -410,6 +275,15 @@ export default function Dashboard() {
                       >
                         Status
                       </TableCell>
+
+                      <TableCell
+                        sx={{
+                          color: muted,
+                          fontWeight: 600,
+                        }}
+                      >
+                        Actions
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -438,8 +312,31 @@ export default function Dashboard() {
                                 fontFamily: fontSans,
                               }}
                             >
+                              {row.bookingId}
+                            </Typography>
+                            
+                          </Box>
+                        </TableCell>
+
+                        <TableCell>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1,
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontSize: 13,
+                                fontWeight: 600,
+                                color: slate,
+                                fontFamily: fontSans,
+                              }}
+                            >
                               {row.name}
                             </Typography>
+                            
                           </Box>
                         </TableCell>
 
@@ -487,6 +384,32 @@ export default function Dashboard() {
                             {row.status}
                           </Box>
                         </TableCell>
+
+                        <TableCell>
+  <Box
+    onClick={() => {/* pachi backend sathe connect karjo */}}
+    sx={{
+      display: "inline-block",
+      px: 2, py: 0.6,
+      borderRadius: "20px",
+      fontSize: "12px",
+      fontWeight: 700,
+      fontFamily: fontSans,
+      background: slate,
+      color: "#fff",
+      cursor: "pointer",
+      transition: "background 0.2s",
+      "&:hover": { background: muted },
+    }}
+  >
+    {/* Status mujab button label */}
+    {row.status === "Confirmed" ? "View" :
+     row.status === "Booked" ? "Approve" :
+     row.status === "Out for Del." ? "Track" :
+     row.status === "Returned" ? "Inspect" :
+     "Approve"}
+  </Box>
+</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
