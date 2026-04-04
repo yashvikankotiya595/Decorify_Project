@@ -32,6 +32,8 @@ import {
   Close as CloseIcon,
 } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Link } from "react-router-dom/cjs/react-router-dom";
+
 
 // ── Theme ──────────────────────────────────────────────────────────────────
 const theme = createTheme({
@@ -552,7 +554,7 @@ function WishlistSection() {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              gap: 1,
+              gap: "22px",
               flexWrap: { xs: "wrap", sm: "nowrap" },
               transition: "border-color .2s",
               "&:hover": { borderColor: C.sub },
@@ -600,6 +602,8 @@ function WishlistSection() {
                 }}
               />
               <Button
+              component={Link}
+                  to="/rentItem"
                 size="small"
                 variant="contained"
                 sx={{
@@ -1001,7 +1005,7 @@ function SidebarContent({
       sx={{
         background: S.grad,
         width: 260,
-        height: "auto",
+        height:"auto",
         pt: {
           sm: 0,
           md: 2.4,
@@ -1023,7 +1027,7 @@ function SidebarContent({
       {/* Avatar + Name */}
       <Box
         sx={{
-          // p: "",
+
           p: {
             xs:"0px 20px 20px 0px",
             sm: "0px 20px 20px 0px",
@@ -1104,6 +1108,7 @@ function SidebarContent({
 
         {/* Logout */}
         <ListItemButton
+        
           sx={{
             borderRadius: "10px",
             py: 1.3,

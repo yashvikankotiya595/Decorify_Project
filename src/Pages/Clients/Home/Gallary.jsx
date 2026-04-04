@@ -50,7 +50,7 @@ const images = [
     title: "Mini Throne Chair",
     category: "Birthday",
     span: { xs: "span 1", md: "span 1" },
-    height: { xs: 400, md: 600 },
+    height: { xs: 400, md: 500 },
   },
   {
     id: 4,
@@ -58,7 +58,7 @@ const images = [
     title: "Banner Stand",
     category: "Corporate",
     span: { xs: "span 2", md: "span 2" },
-    height: { xs: 640, md: 600 },
+    height: { xs: 640, md: 500 },
   },
   {
     id: 5,
@@ -76,17 +76,17 @@ const images = [
     span: { xs: "span 1", md: "span 1" },
     height: { xs: 500, md: 500 },
   },
-  {
-    id: 7,
-    src: "/kalash_decoration.png",
-    title: "Kalash",
-    category: "Housewarming",
-    span: { xs: "span 1", md: "span 1" },
-    height: { xs: 400, md: 500 },
-  },
+  // {
+  //   id: 7,
+  //   src: "/kalash_decoration.png",
+  //   title: "Kalash",
+  //   category: "Housewarming",
+  //   span: { xs: "span 1", md: "span 1" },
+  //   height: { xs: 400, md: 500 },
+  // },
 ];
 
-const categories = ["All", "Wedding", "Birthday", "Corporate", "Housewarming"];
+const categories = ["All", "Wedding", "Birthday", "Corporate"];
 
 
 const Gallary = () => {
