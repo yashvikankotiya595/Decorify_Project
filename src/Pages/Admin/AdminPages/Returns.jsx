@@ -18,7 +18,7 @@ const muted = "#735f5f"; // as per user's tokens
 const bg = "#F5EFEc";
 const border = "rgba(196,154,154,0.22)";
 const sub = "#C49A9A";
-const primary = "#3d2a2a";
+
 
 // ── Flow steps ──
 const FLOW_STEPS = [
@@ -121,7 +121,7 @@ export default function Returns() {
   const pendingCount = returns.filter((r) => !r.processed).length;
 
   return (
-    <Box sx={{ p: { xs: 2, md: 4 }, background: "#fff", minHeight: "100vh" }}>
+    <Box sx={{ background: "#fff", minHeight: "100vh" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap');
       `}</style>
@@ -143,14 +143,14 @@ export default function Returns() {
               fontFamily: fontSerif,
               fontSize: 34,
               fontWeight: 600,
-              color: primary,
+              color: slate,
               lineHeight: 1,
             }}
           >
             Returns & Damage Inspection
           </Typography>
           <Typography
-            sx={{ fontFamily: fontSans, fontSize: 12, color: muted, mt: 0.5 }}
+            sx={{ fontFamily: fontSans, fontSize: 12, color: muted, mt: 0.5,textAlign:"left" }}
           >
             Inspect returned items and decide refund amounts
           </Typography>
@@ -271,8 +271,9 @@ export default function Returns() {
                       fontFamily: fontSerif,
                       fontSize: 20,
                       fontWeight: 600,
-                      color: primary,
+                      color: slate,
                       lineHeight: 1.2,
+                      textAlign:"left"
                     }}
                   >
                     {item.emoji} {item.item} — Booking {item.booking}
@@ -283,10 +284,11 @@ export default function Returns() {
                       fontSize: 12,
                       color: muted,
                       mt: 0.4,
+                      textAlign:"left"
                     }}
                   >
                     Returned by:{" "}
-                    <strong style={{ color: primary }}>{item.customer}</strong>{" "}
+                    <strong style={{ color: slate }}>{item.customer}</strong>{" "}
                     · Returned on: {item.returnDate}
                   </Typography>
                 </Box>
@@ -351,6 +353,7 @@ export default function Returns() {
                         background: "#e8f5ee",
                         color: "#2d7a50",
                         border: "1px solid #a0d0b0",
+                        textAlign:"left"
                       }}
                     />
                   ) : isGood ? (
@@ -454,7 +457,7 @@ export default function Returns() {
                     },
                     "& .MuiInputBase-input": {
                       padding: "7px 12px",
-                      color: primary,
+                      color: slate,
                       textAlign: "center",
                     },
                   }}

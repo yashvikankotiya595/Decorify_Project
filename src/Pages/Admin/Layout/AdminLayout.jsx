@@ -28,6 +28,8 @@ import Admin_category from "../AdminPages/Admin_category";
 import Orders from "../AdminPages/Orders";
 import Returns from "../AdminPages/Returns";
 import Refunds from "../AdminPages/Refunds";
+import Users from "../AdminPages/Users";
+import Payment from "../AdminPages/Payment";
 import Contact from "../AdminPages/Contact";
 import Settings from "../AdminPages/Settings";
 // Page id → label
@@ -137,8 +139,8 @@ const AdminLayout = () => {
           {activePage === "orders" && <Orders />}
           {activePage === "returns" && <Returns />}
           {activePage === "refunds" && <Refunds />}
-          {/* {activePage === "users"      && <Users />}      */}
-          {/* {activePage === "payments"   && <Payments />}   */}
+          {activePage === "users" && <Users />}
+          {activePage === "payments" && <Payment />}
           {activePage === "contact" && <Contact />}
           {activePage === "settings" && <Settings />}
         </Box>

@@ -20,19 +20,11 @@ import { Search, Add, Close, Edit, Delete } from "@mui/icons-material";
 const fontSans = "'Montserrat', sans-serif";
 const fontSerif = "'Cormorant Garamond', serif";
 const sub = "#C49A9A";
-const slate = "#735f5f";
-const muted = "#9a8888";
+const muted = "#735f5f";
 const bg = "#F5EFEc";
-const btnColor = "#a17a7a";
-const primary = "#3d2a2a";
-const border = "rgba(196,154,154,0.22)";
+const slate = "#a17a7a";
 
-const TAG_COLORS = {
-  Popular: { bg: "#fce8e8", color: "#a14040" },
-  Trending: { bg: "#fdf0e0", color: "#a16a20" },
-  New: { bg: "#e8f5ee", color: "#2d7a50" },
-  Premium: { bg: "#ede8fd", color: "#5a3a9a" },
-};
+const border = "rgba(196,154,154,0.22)";
 const TAGS = ["", "Popular", "Trending", "New", "Premium"];
 const CATEGORIES = [
   "Wedding",
@@ -52,8 +44,7 @@ const INIT_PRODUCTS = [
     deposit: 2000,
     qty: 3,
     tag: "Popular",
-    image:
-      "W_floral_canopy.png",
+    image: "W_floral_canopy.png",
     description: "Traditional floral bajot for wedding ceremonies.",
   },
   {
@@ -64,8 +55,7 @@ const INIT_PRODUCTS = [
     deposit: 1500,
     qty: 2,
     tag: "Trending",
-    image:
-      "B_kids_chair.png",
+    image: "B_kids_chair.png",
     description: "Fun selfie booth stand for birthday parties.",
   },
   {
@@ -88,20 +78,18 @@ const INIT_PRODUCTS = [
     deposit: 1000,
     qty: 5,
     tag: "",
-    image:
-      "https://i.pinimg.com/736x/55/2a/53/552a53de2ee0da76c8870dba13de3a82.jpg",
+    image: "B_banner_stand.png",
     description: "Professional banner stand for corporate events.",
   },
   {
     id: 5,
-    name: "Ring Light",
-    category: "Corporate",
+    name: "Diya Stand",
+    category: "Housewarming",
     price: 700,
     deposit: 1200,
     qty: 4,
     tag: "New",
-    image:
-      "https://i.pinimg.com/736x/fd/13/6f/fd136f8f33f74d5fa70fd4b59d4d6a81.jpg",
+    image: "Diya_stand.png",
     description: "Professional ring light for reels.",
   },
   {
@@ -116,7 +104,6 @@ const INIT_PRODUCTS = [
       "https://i.pinimg.com/736x/4a/d0/e8/4ad0e88a6bcac3562f21fdf61368debb.jpg",
     description: "Elegant chandelier for wedding halls.",
   },
-  
 ];
 
 const BLANK = {
@@ -137,10 +124,6 @@ export default function Product() {
   const [formOpen, setFormOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState({ ...BLANK });
-
-  // Delete confirm
-  const [deleteOpen, setDeleteOpen] = useState(false);
-  const [deleteItem, setDeleteItem] = useState(null);
 
   const filtered = products.filter(
     (p) =>
@@ -222,7 +205,7 @@ export default function Product() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          textAlign:"left",
+          textAlign: "left",
           mb: 3,
           flexWrap: "wrap",
           gap: 2,
@@ -234,7 +217,7 @@ export default function Product() {
               fontFamily: fontSerif,
               fontSize: 34,
               fontWeight: 600,
-              color: primary,
+              color: slate,
               lineHeight: 1,
             }}
           >
@@ -282,7 +265,7 @@ export default function Product() {
                   borderWidth: "1px",
                 },
               },
-              "& .MuiInputBase-input": { padding: "9px 13px", color: primary },
+              "& .MuiInputBase-input": { padding: "9px 13px", color: slate },
             }}
           />
 
@@ -294,11 +277,11 @@ export default function Product() {
               fontFamily: fontSans,
               fontSize: 11,
               fontWeight: 700,
-              background: btnColor,
+              background: slate,
               borderRadius: 2.5,
               px: 2.5,
               py: 1.1,
-              boxShadow: `0 4px 16px ${btnColor}55`,
+              boxShadow: `0 4px 16px ${slate}55`,
               "&:hover": { background: "#8a6060" },
             }}
           >
@@ -320,7 +303,7 @@ export default function Product() {
               cursor: "pointer",
               border: `1px solid ${filter === cat ? sub : border}`,
               background: filter === cat ? `${sub}22` : bg,
-              color: filter === cat ? btnColor : muted,
+              color: filter === cat ? muted : slate,
               fontFamily: fontSans,
               fontSize: 11,
               fontWeight: 600,
@@ -553,14 +536,14 @@ export default function Product() {
                         fontFamily: fontSans,
                         fontSize: 10,
                         fontWeight: 700,
-                        background: btnColor,
+                        background: slate,
                         borderRadius: "8px",
                         px: 2,
                         py: 0.8,
                         boxShadow: "none",
                         "&:hover": {
                           background: "#fff",
-                          color: btnColor,
+                          color: slate,
                           boxShadow: "none",
                         },
                       }}
@@ -630,7 +613,7 @@ export default function Product() {
             fontFamily: fontSerif,
             fontSize: 24,
             fontWeight: 600,
-            color: primary,
+            color: slate,
             borderBottom: `1px solid ${border}`,
             pb: 2,
             display: "flex",
@@ -692,7 +675,7 @@ export default function Product() {
                   },
                   "& .MuiInputBase-input": {
                     padding: "9px 13px",
-                    color: primary,
+                    color: slate,
                   },
                 }}
               />
@@ -786,7 +769,7 @@ export default function Product() {
                   },
                   "& .MuiInputBase-input": {
                     padding: "9px 13px",
-                    color: primary,
+                    color: slate,
                   },
                 }}
               />
@@ -831,7 +814,7 @@ export default function Product() {
                   },
                   "& .MuiInputBase-input": {
                     padding: "9px 13px",
-                    color: primary,
+                    color: slate,
                   },
                 }}
               />
@@ -876,7 +859,7 @@ export default function Product() {
                   },
                   "& .MuiInputBase-input": {
                     padding: "9px 13px",
-                    color: primary,
+                    color: slate,
                   },
                 }}
               />
@@ -969,7 +952,7 @@ export default function Product() {
                   },
                   "& .MuiInputBase-input": {
                     padding: "9px 13px",
-                    color: primary,
+                    color: slate,
                   },
                 }}
               />
@@ -1016,11 +999,29 @@ export default function Product() {
                   },
                   "& .MuiInputBase-input": {
                     padding: "9px 13px",
-                    color: primary,
+                    color: slate,
                   },
                 }}
               />
             </Grid>
+            <Button
+              onClick={handleAddClick}
+              variant="contained"
+              startIcon={<Add />}
+              sx={{
+                fontFamily: fontSans,
+                fontSize: 11,
+                fontWeight: 700,
+                background: slate,
+                borderRadius: 2.5,
+                px: 2.5,
+                py: 1.1,
+                boxShadow: `0 4px 16px ${slate}55`,
+                "&:hover": { background: muted },
+              }}
+            >
+              Add Product
+            </Button>
           </Grid>
         </DialogContent>
       </Dialog>

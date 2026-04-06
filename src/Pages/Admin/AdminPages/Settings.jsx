@@ -46,51 +46,147 @@ export default function Settings() {
   };
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3.5 }, background: bg, minHeight: "100vh" }}>
+    <Box sx={{ background: "#fff", minHeight: "100vh" }}>
       {/* Header */}
-      <Box sx={{ display: { xs: "none", md: "block" }, mb: 3, textAlign: "left" }}>
-        <Typography sx={{ fontFamily: fontSerif, fontWeight: 600, fontSize: "28px", color: muted }}>
-          Settings
+      <Box
+        sx={{ display: { xs: "none", md: "block" }, mb: 3, textAlign: "left" }}
+      >
+        <Typography
+          sx={{
+            fontFamily: fontSerif,
+            fontSize: 34,
+            fontWeight: 600,
+            color: slate,
+            lineHeight: 1,
+            textAlign: "left",
+          }}
+        >
+          Setting
         </Typography>
-        <Typography sx={{ fontFamily: fontSans, fontSize: "13px", color: "#9a8888", mt: 0.3 }}>
+        <Typography
+          sx={{
+            fontFamily: fontSans,
+            fontSize: 12,
+            color: muted,
+            textAlign: "left",
+            mt: 0.5,
+            mb: 3.5,
+          }}
+        >
           Manage your admin account
         </Typography>
       </Box>
 
       {/* Form Card */}
-      <Box sx={{
-        background: "#fff",
-        borderRadius: "20px",
-        border: "1px solid rgba(161,122,122,0.15)",
-        boxShadow: "0 4px 20px rgba(161,122,122,0.08)",
-        p: { xs: 2.5, md: 4 },
-        maxWidth: 860,
-      }}>
-
+      <Box
+        sx={{
+          background: "#fff",
+          borderRadius: "20px",
+          border: "1px solid rgba(161,122,122,0.15)",
+          boxShadow: "0 4px 20px rgba(161,122,122,0.08)",
+          p: { xs: 2.5, md: 4 },
+          maxWidth: 860,
+          boxShadow:3,
+        }}
+      >
         {/* Top accent */}
-        <Box sx={{
-          height: 3,
-          background: `linear-gradient(90deg, ${slate}, #c49a9a, ${slate})`,
-          borderRadius: "2px",
-          mb: 3.5,
-        }} />
+        <Box
+          sx={{
+            height: 3,
+            background: `linear-gradient(90deg, ${slate}, #c49a9a, ${slate})`,
+            borderRadius: "2px",
+            mb: 3.5,
+          }}
+        />
 
         {/* Name + Email */}
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2, mb: 2 }}>
-          <TextField label="Full Name" name="name" value={form.name} onChange={handleChange} size="small" fullWidth sx={inputSx} />
-          <TextField label="Email Address" name="email" type="email" value={form.email} onChange={handleChange} size="small" fullWidth sx={inputSx} />
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+            gap: 2,
+            mb: 2,
+          }}
+        >
+          <TextField
+            label="Full Name"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            size="small"
+            fullWidth
+            sx={inputSx}
+          />
+          <TextField
+            label="Email Address"
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            size="small"
+            fullWidth
+            sx={inputSx}
+          />
         </Box>
 
         {/* Phone + Address */}
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2, mb: 2 }}>
-          <TextField label="Phone Number" name="phone" value={form.phone} onChange={handleChange} size="small" fullWidth sx={inputSx} />
-          <TextField label="Address" name="address" value={form.address} onChange={handleChange} size="small" fullWidth sx={inputSx} />
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+            gap: 2,
+            mb: 2,
+          }}
+        >
+          <TextField
+            label="Phone Number"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            size="small"
+            fullWidth
+            sx={inputSx}
+          />
+          <TextField
+            label="Address"
+            name="address"
+            value={form.address}
+            onChange={handleChange}
+            size="small"
+            fullWidth
+            sx={inputSx}
+          />
         </Box>
 
         {/* Current + New Password */}
-        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: 2, mb: 2 }}>
-          <TextField label="Current Password" name="currentPassword" type="password" value={form.currentPassword} onChange={handleChange} size="small" fullWidth sx={inputSx} />
-          <TextField label="New Password" name="newPassword" type="password" value={form.newPassword} onChange={handleChange} size="small" fullWidth sx={inputSx} />
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+            gap: 2,
+            mb: 2,
+          }}
+        >
+          <TextField
+            label="Current Password"
+            name="currentPassword"
+            type="password"
+            value={form.currentPassword}
+            onChange={handleChange}
+            size="small"
+            fullWidth
+            sx={inputSx}
+          />
+          <TextField
+            label="New Password"
+            name="newPassword"
+            type="password"
+            value={form.newPassword}
+            onChange={handleChange}
+            size="small"
+            fullWidth
+            sx={inputSx}
+          />
         </Box>
 
         {/* Notes */}
@@ -100,7 +196,8 @@ export default function Settings() {
             name="notes"
             value={form.notes}
             onChange={handleChange}
-            multiline rows={4}
+            multiline
+            rows={4}
             fullWidth
             sx={inputSx}
           />
@@ -110,7 +207,7 @@ export default function Settings() {
         <Box
           onClick={handleSave}
           sx={{
-            background: saved ? "#2e7d32" : muted,
+            background: saved ? "#2e7d32" : slate,
             color: "#fff",
             fontFamily: fontSans,
             fontWeight: 600,
@@ -121,10 +218,10 @@ export default function Settings() {
             borderRadius: "10px",
             cursor: "pointer",
             transition: "all 0.25s",
-            "&:hover": { background: slate },
+            "&:hover": { background: muted },
           }}
         >
-          {saved ? "✅ Changes Saved!" : "💾 Save Changes"}
+          {saved ? "✅ Changes Saved!" : "Save Changes"}
         </Box>
       </Box>
     </Box>

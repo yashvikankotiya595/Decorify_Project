@@ -70,7 +70,7 @@ export default function Contact() {
   const unreadCount = messages.filter((m) => m.status === "Unread").length;
 
   return (
-    <Box sx={{ p: { xs: 2, md: 3.5 }, background: bg, minHeight: "100vh" }}>
+    <Box sx={{ background: "#fff", minHeight: "100vh" }}>
       {/* Header */}
       <Box
         sx={{ display: { xs: "none", md: "block" }, mb: 3, textAlign: "left" }}
@@ -78,9 +78,11 @@ export default function Contact() {
         <Typography
           sx={{
             fontFamily: fontSerif,
+            fontSize: 34,
             fontWeight: 600,
-            fontSize: "28px",
-            color: muted,
+            color: slate,
+            lineHeight: 1,
+            textAlign: "left",
           }}
         >
           Contact Messages
@@ -88,9 +90,11 @@ export default function Contact() {
         <Typography
           sx={{
             fontFamily: fontSans,
-            fontSize: "13px",
-            color: "#9a8888",
-            mt: 0.3,
+            fontSize: 12,
+            color: muted,
+            textAlign: "left",
+            mt: 0.5,
+            mb: 3.5,
           }}
         >
           {unreadCount} unread message{unreadCount !== 1 ? "s" : ""}
@@ -105,16 +109,20 @@ export default function Contact() {
         size="small"
         sx={{
           mb: 3,
-          width: { xs: "100%", sm: 320 },
+          width: { xs: "100%", sm: 400 },
           "& .MuiOutlinedInput-root": {
-            borderRadius: "10px",
-            background: "#fff",
             fontFamily: fontSans,
-            fontSize: "13px",
-            "& fieldset": { borderColor: "rgba(161,122,122,0.25)" },
-            "&:hover fieldset": { borderColor: slate },
-            "&.Mui-focused fieldset": { borderColor: slate },
+            fontSize: 13,
+            borderRadius: "8px",
+            background: "#F5EFEc",
+            "& fieldset": { borderColor: "rgba(196,154,154,0.22)" },
+            "&:hover fieldset": { borderColor: "#C49A9A" },
+            "&.Mui-focused fieldset": {
+              borderColor: "#C49A9A",
+              borderWidth: "1px",
+            },
           },
+          "& .MuiInputBase-input": { padding: "9px 13px", color: slate },
         }}
         InputProps={{
           startAdornment: (
@@ -126,7 +134,14 @@ export default function Contact() {
       />
 
       {/* Message Cards */}
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          textAlign: "left",
+        }}
+      >
         {filtered.map((m) => (
           <Box
             key={m.id}
@@ -163,7 +178,7 @@ export default function Contact() {
                     fontFamily: fontSans,
                     fontWeight: 700,
                     fontSize: "15px",
-                    color: muted,
+                    color: slate,
                   }}
                 >
                   {m.name}
@@ -226,6 +241,7 @@ export default function Contact() {
               sx={{
                 fontFamily: fontSans,
                 fontSize: "13px",
+                textAlign: "left",
                 color: "#9a8888",
                 lineHeight: 1.7,
                 mb: m.status === "Unread" ? 1.5 : 0,

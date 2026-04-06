@@ -323,7 +323,6 @@ export default function Dashboard() {
                   sx={{
                     border: "1px solid rgba(196,154,154,0.3)",
                     borderRadius: "8px",
-                   
                     display: "flex",
                     alignItems: "center",
                     
@@ -343,22 +342,19 @@ export default function Dashboard() {
                     }}
                     sx={{
                       width: 200,
-                      "& .MuiOutlinedInput-root": {
-                        fontFamily: fontSans,
-                        fontSize: 13,
-                        borderRadius: "8px",
-                        background: "#F5EFEc",
-                        "& fieldset": { borderColor: "#F5EFEc"},
-                        "&:hover fieldset": { borderColor: slate },
-                        "&.Mui-focused fieldset": {
-                          borderColor: slate,
-                          borderWidth: "1px",
-                        },
-                      },
-                      "& .MuiInputBase-input": {
-                        padding: "9px 13px",
-                        color: slate,
-                      },
+                     "& .MuiOutlinedInput-root": {
+                fontFamily: fontSans,
+                fontSize: 13,
+                borderRadius: "8px",
+                background:  "#F5EFEc",
+                "& fieldset": { borderColor: "rgba(196,154,154,0.22)" },
+                "&:hover fieldset": { borderColor: "#C49A9A" },
+                "&.Mui-focused fieldset": {
+                  borderColor: "#C49A9A",
+                  borderWidth: "1px",
+                },
+              },
+              "& .MuiInputBase-input": { padding: "9px 13px", color: slate },
                     }}
                   />
                 </Box>

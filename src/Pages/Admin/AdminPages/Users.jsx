@@ -35,53 +35,56 @@ const muted = "#735f5f";
 
 const BOOKINGS = [
   {
-    bookingId: "#BK0120",
     name: "Riya Patel",
-    product: "Flower Arch",
-    dates: "Apr 3–5",
+    email: "Riya@gmail.com",
+    join: "Apr 2021",
     amount: "₹1,500",
-    status: "Confirmed",
+    status: "Active",
     sClr: { bg: "rgba(90,154,110,0.14)", tx: "#2e7050" },
   },
   {
-    bookingId: "#BK0120",
     name: "Mehul Shah",
-    product: "LED Curtain",
-    dates: "Apr 6–7",
+    email: "mehul@gmail.com",
+    join: "Apr 2022",
     amount: "₹2,000",
-    status: "Booked",
-    sClr: { bg: "rgba(196,154,154,0.15)", tx: "#7a4a4a" },
+    status: "Active",
+    sClr: { bg: "rgba(90,154,110,0.14)", tx: "#2e7050" },
   },
   {
-    bookingId: "#BK0120",
     name: "Priya Desai",
-    product: "Balloon Setup",
-    dates: "Apr 4",
+    email: "priya@gmail.com",
+    join: "Apr 2021",
     amount: "₹800",
-    status: "Out for Del.",
-    sClr: { bg: "rgba(120,90,180,0.13)", tx: "#5a3a9a" },
+    status: "Active",
+    sClr: { bg: "rgba(90,154,110,0.14)", tx: "#2e7050" },
   },
   {
-    bookingId: "#BK0120",
     name: "Ankit Modi",
-    product: "Photo Booth",
-    dates: "Mar 30–31",
+    email: "ankit@gmail.com",
+    join: "Mar 2024",
     amount: "₹3,200",
-    status: "Returned",
-    sClr: { bg: "rgba(80,120,200,0.13)", tx: "#3050a0" },
+    status: "Active",
+    sClr: { bg: "rgba(90,154,110,0.14)", tx: "#2e7050" },
   },
   {
-    bookingId: "#BK0120",
     name: "Kavita Joshi",
-    product: "Fairy Lights",
-    dates: "Apr 8–10",
+    email: "kavita@gmail.com",
+    join: "Apr 2025",
     amount: "₹1,200",
-    status: "Pending",
-    sClr: { bg: "rgba(220,160,50,0.15)", tx: "#7a5800" },
+    status: "Inactive",
+    sClr: { bg: "rgba(220, 50, 50, 0.15)", tx: "#8b0202" },
+  },
+   {
+    name: "Diya Joshi",
+    email: "diya@gmail.com",
+    join: "Apr 2026",
+    amount: "₹1,200",
+    status: "Inactive",
+    sClr: { bg: "rgba(220, 50, 50, 0.15)", tx: "#8b0202" },
   },
 ];
 
-export default function Orders() {
+export default function Users() {
   const [search, setSearch] = useState("");
 
   const theme = createTheme({
@@ -113,7 +116,7 @@ export default function Orders() {
             textAlign: "left",
           }}
         >
-          Orders
+          Users
         </Typography>
         <Typography
           sx={{
@@ -125,7 +128,7 @@ export default function Orders() {
             mb: 3.5,
           }}
         >
-          Track all customer bookings and manage their status
+          Manage all users and their status
         </Typography>
 
         {/* ── Main Grid ── */}
@@ -161,67 +164,17 @@ export default function Orders() {
                     color: muted,
                   }}
                 >
-                  All Orders
+                  All Users
                 </Typography>
 
-                {/* 🔍 Search Bar */}
-                <Box
-                  sx={{
-                    border: "1px solid rgba(196,154,154,0.3)",
-                    borderRadius: "8px",
-
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <TextField
-                    size="small"
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search Bookings.."
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Search sx={{ fontSize: 15, color: muted }} />
-                        </InputAdornment>
-                      ),
-                    }}
-                    sx={{
-                      width: 200,
-                      "& .MuiOutlinedInput-root": {
-                        fontFamily: fontSans,
-                        fontSize: 13,
-                        borderRadius: "8px",
-                        background: "#F5EFEc",
-                        "& fieldset": { borderColor: "rgba(196,154,154,0.22)" },
-                        "&:hover fieldset": { borderColor: "#C49A9A" },
-                        "&.Mui-focused fieldset": {
-                          borderColor: "#C49A9A",
-                          borderWidth: "1px",
-                        },
-                      },
-                      "& .MuiInputBase-input": {
-                        padding: "9px 13px",
-                        color: slate,
-                      },
-                    }}
-                  />
-                </Box>
+               
+            
               </Box>
 
               <TableContainer>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell
-                        sx={{
-                          color: muted,
-                          fontWeight: 600,
-                        }}
-                      >
-                        Booking Id
-                      </TableCell>
-
                       <TableCell
                         sx={{
                           color: muted,
@@ -236,7 +189,7 @@ export default function Orders() {
                           fontWeight: 600,
                         }}
                       >
-                        Product
+                        Email
                       </TableCell>
                       {!isMobile && (
                         <TableCell
@@ -245,7 +198,7 @@ export default function Orders() {
                             fontWeight: 600,
                           }}
                         >
-                          Dates
+                          Joined
                         </TableCell>
                       )}
                       <TableCell
@@ -264,20 +217,11 @@ export default function Orders() {
                       >
                         Status
                       </TableCell>
-
-                      <TableCell
-                        sx={{
-                          color: muted,
-                          fontWeight: 600,
-                        }}
-                      >
-                        Actions
-                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {BOOKINGS.filter((item) =>
-                      item.product.toLowerCase().includes(search.toLowerCase()),
+                      item.name.toLowerCase().includes(search.toLowerCase()),
                     ).map((row, index) => (
                       <TableRow
                         key={index}
@@ -296,28 +240,6 @@ export default function Orders() {
                             <Typography
                               sx={{
                                 fontSize: 13,
-
-                                color: slate,
-                                fontFamily: fontSans,
-                              }}
-                            >
-                              {row.bookingId}
-                            </Typography>
-                          </Box>
-                        </TableCell>
-
-                        <TableCell>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: 1,
-                            }}
-                          >
-                            <Typography
-                              sx={{
-                                fontSize: 13,
-
                                 color: slate,
                                 fontFamily: fontSans,
                               }}
@@ -327,13 +249,17 @@ export default function Orders() {
                           </Box>
                         </TableCell>
 
-                        <TableCell sx={{ fontSize: 13, color: slate }}>
-                          {row.product}
+                        <TableCell
+                          sx={{ fontSize: 13, color: slate }}
+                        >
+                          {row.email}
                         </TableCell>
 
                         {!isMobile && (
-                          <TableCell sx={{ fontSize: 13, color: slate }}>
-                            {row.dates}
+                          <TableCell
+                            sx={{ fontSize: 13, color: slate }}
+                          >
+                            {row.join}
                           </TableCell>
                         )}
 
@@ -341,7 +267,7 @@ export default function Orders() {
                           <Typography
                             sx={{
                               fontSize: 13,
-
+                          
                               color: slate,
                               fontFamily: fontSans,
                             }}
@@ -365,39 +291,6 @@ export default function Orders() {
                             }}
                           >
                             {row.status}
-                          </Box>
-                        </TableCell>
-
-                        <TableCell>
-                          <Box
-                            onClick={() => {
-                              /* pachi backend sathe connect karjo */
-                            }}
-                            sx={{
-                              display: "inline-block",
-                              px: 2,
-                              py: 0.6,
-                              borderRadius: "20px",
-                              fontSize: "12px",
-                              fontWeight: 700,
-                              fontFamily: fontSans,
-                              background: slate,
-                              color: "#fff",
-                              cursor: "pointer",
-                              transition: "background 0.2s",
-                              "&:hover": { background: muted },
-                            }}
-                          >
-                            {/* Status mujab button label */}
-                            {row.status === "Confirmed"
-                              ? "View"
-                              : row.status === "Booked"
-                                ? "Approve"
-                                : row.status === "Out for Del."
-                                  ? "Track"
-                                  : row.status === "Returned"
-                                    ? "Inspect"
-                                    : "Approve"}
                           </Box>
                         </TableCell>
                       </TableRow>

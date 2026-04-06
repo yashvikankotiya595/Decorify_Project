@@ -21,11 +21,6 @@ import {
 import { ThemeProvider } from "@mui/material/styles";
 import { Search } from "@mui/icons-material";
 
-import CurrencyRupeeRoundedIcon from "@mui/icons-material/CurrencyRupeeRounded";
-import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
-import Inventory2RoundedIcon from "@mui/icons-material/Inventory2Rounded";
-import ReplayRoundedIcon from "@mui/icons-material/ReplayRounded";
-
 const fontSans = "'Montserrat', sans-serif";
 const fontSerif = "'Cormorant Garamond', serif";
 const slate = "#a17a7a";
@@ -35,53 +30,58 @@ const muted = "#735f5f";
 
 const BOOKINGS = [
   {
+    transactionId: "TXN8821",
     bookingId: "#BK0120",
     name: "Riya Patel",
-    product: "Flower Arch",
-    dates: "Apr 3–5",
+    method: "UPI",
+    dates: "Apr 1",
     amount: "₹1,500",
-    status: "Confirmed",
+    status: "Paid",
     sClr: { bg: "rgba(90,154,110,0.14)", tx: "#2e7050" },
   },
   {
+    transactionId: "TXN8820",
     bookingId: "#BK0120",
     name: "Mehul Shah",
-    product: "LED Curtain",
-    dates: "Apr 6–7",
+    method: "Card",
+    dates: "Apr 6",
     amount: "₹2,000",
-    status: "Booked",
+    status: "Refunded",
     sClr: { bg: "rgba(196,154,154,0.15)", tx: "#7a4a4a" },
   },
   {
+    transactionId: "TXN8819",
     bookingId: "#BK0120",
     name: "Priya Desai",
-    product: "Balloon Setup",
+    method: "UPI",
     dates: "Apr 4",
     amount: "₹800",
-    status: "Out for Del.",
-    sClr: { bg: "rgba(120,90,180,0.13)", tx: "#5a3a9a" },
+    status: "Paid",
+    sClr: { bg: "rgba(90,154,110,0.14)", tx: "#2e7050" },
   },
   {
+    transactionId: "TXN8818",
     bookingId: "#BK0120",
     name: "Ankit Modi",
-    product: "Photo Booth",
-    dates: "Mar 30–31",
+    method: "Net Banking",
+    dates: "Mar 30",
     amount: "₹3,200",
-    status: "Returned",
-    sClr: { bg: "rgba(80,120,200,0.13)", tx: "#3050a0" },
+    status: "Failed",
+    sClr: { bg: "rgba(220, 50, 50, 0.15)", tx: "#8b0202" },
   },
   {
+    transactionId: "TXN8810",
     bookingId: "#BK0120",
     name: "Kavita Joshi",
-    product: "Fairy Lights",
-    dates: "Apr 8–10",
+    method: "UPI",
+    dates: "Apr 10",
     amount: "₹1,200",
     status: "Pending",
     sClr: { bg: "rgba(220,160,50,0.15)", tx: "#7a5800" },
   },
 ];
 
-export default function Orders() {
+export default function Payment() {
   const [search, setSearch] = useState("");
 
   const theme = createTheme({
@@ -113,7 +113,7 @@ export default function Orders() {
             textAlign: "left",
           }}
         >
-          Orders
+          Payment
         </Typography>
         <Typography
           sx={{
@@ -125,7 +125,7 @@ export default function Orders() {
             mb: 3.5,
           }}
         >
-          Track all customer bookings and manage their status
+          View all transaction history and payment status
         </Typography>
 
         {/* ── Main Grid ── */}
@@ -178,7 +178,7 @@ export default function Orders() {
                     size="small"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder="Search Bookings.."
+                    placeholder="Search Payment"
                     InputProps={{
                       startAdornment: (
                         <InputAdornment position="start">
@@ -219,6 +219,14 @@ export default function Orders() {
                           fontWeight: 600,
                         }}
                       >
+                        Transaction Id
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: muted,
+                          fontWeight: 600,
+                        }}
+                      >
                         Booking Id
                       </TableCell>
 
@@ -236,7 +244,15 @@ export default function Orders() {
                           fontWeight: 600,
                         }}
                       >
-                        Product
+                        Amount
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          color: muted,
+                          fontWeight: 600,
+                        }}
+                      >
+                        Method
                       </TableCell>
                       {!isMobile && (
                         <TableCell
@@ -248,14 +264,7 @@ export default function Orders() {
                           Dates
                         </TableCell>
                       )}
-                      <TableCell
-                        sx={{
-                          color: muted,
-                          fontWeight: 600,
-                        }}
-                      >
-                        Amount
-                      </TableCell>
+
                       <TableCell
                         sx={{
                           color: muted,
@@ -264,20 +273,11 @@ export default function Orders() {
                       >
                         Status
                       </TableCell>
-
-                      <TableCell
-                        sx={{
-                          color: muted,
-                          fontWeight: 600,
-                        }}
-                      >
-                        Actions
-                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {BOOKINGS.filter((item) =>
-                      item.product.toLowerCase().includes(search.toLowerCase()),
+                      item.method.toLowerCase().includes(search.toLowerCase()),
                     ).map((row, index) => (
                       <TableRow
                         key={index}
@@ -285,6 +285,25 @@ export default function Orders() {
                           "&:hover td": { background: "rgba(245,239,236,0.6)" },
                         }}
                       >
+                        <TableCell>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: 1,
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontSize: 13,
+                                color: slate,
+                                fontFamily: fontSans,
+                              }}
+                            >
+                              {row.transactionId}
+                            </Typography>
+                          </Box>
+                        </TableCell>
                         <TableCell>
                           <Box
                             sx={{
@@ -328,7 +347,11 @@ export default function Orders() {
                         </TableCell>
 
                         <TableCell sx={{ fontSize: 13, color: slate }}>
-                          {row.product}
+                          {row.amount}
+                        </TableCell>
+
+                        <TableCell sx={{ fontSize: 13, color: slate }}>
+                          {row.method}
                         </TableCell>
 
                         {!isMobile && (
@@ -338,24 +361,11 @@ export default function Orders() {
                         )}
 
                         <TableCell>
-                          <Typography
-                            sx={{
-                              fontSize: 13,
-
-                              color: slate,
-                              fontFamily: fontSans,
-                            }}
-                          >
-                            {row.amount}
-                          </Typography>
-                        </TableCell>
-
-                        <TableCell>
                           <Box
                             sx={{
                               background: row.sClr.bg,
                               color: row.sClr.tx,
-                              fontSize: 12,
+                              fontSize: 13,
                               fontWeight: 700,
                               px: 1.125,
                               py: 0.375,
@@ -365,39 +375,6 @@ export default function Orders() {
                             }}
                           >
                             {row.status}
-                          </Box>
-                        </TableCell>
-
-                        <TableCell>
-                          <Box
-                            onClick={() => {
-                              /* pachi backend sathe connect karjo */
-                            }}
-                            sx={{
-                              display: "inline-block",
-                              px: 2,
-                              py: 0.6,
-                              borderRadius: "20px",
-                              fontSize: "12px",
-                              fontWeight: 700,
-                              fontFamily: fontSans,
-                              background: slate,
-                              color: "#fff",
-                              cursor: "pointer",
-                              transition: "background 0.2s",
-                              "&:hover": { background: muted },
-                            }}
-                          >
-                            {/* Status mujab button label */}
-                            {row.status === "Confirmed"
-                              ? "View"
-                              : row.status === "Booked"
-                                ? "Approve"
-                                : row.status === "Out for Del."
-                                  ? "Track"
-                                  : row.status === "Returned"
-                                    ? "Inspect"
-                                    : "Approve"}
                           </Box>
                         </TableCell>
                       </TableRow>

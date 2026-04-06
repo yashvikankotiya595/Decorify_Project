@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Category from "./Category";  //done
 import PopularItem from "./PopularItem"; //done
-import Pricing from "./Pricing"; //done
+import WhyChooseUs from "./WhyChooseUs";
 import Gallary from "./Gallary"; //done
 import Testimonials from "./Testimonials"; //done
 import Services from "./Services"; //done
@@ -328,7 +328,7 @@ const HomeSec = () => {
         <Container maxWidth="xl" disableGutters>
           <Category/>
           <PopularItem />
-          <Pricing />
+          <WhyChooseUs/>
           <Gallary />
           <Testimonials />
           <Services />

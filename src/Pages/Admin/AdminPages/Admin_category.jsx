@@ -1,16 +1,13 @@
 import { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 
-// ── Design Tokens ──
 const fontSans = "'Montserrat', sans-serif";
 const fontSerif = "'Cormorant Garamond', serif";
 const bg = "#F5EFEc";
 const slate = "#a17a7a";
 const muted = "#735f5f";
-const btnColor = "#a17a7a";
 const border = "rgba(196,154,154,0.25)";
 
-// ── Initial categories ──
 const INIT_CATEGORIES = [
   {
     id: 1,
@@ -30,12 +27,7 @@ const INIT_CATEGORIES = [
     description: "Corporate events & seminars",
     count: 12,
   },
-  {
-    id: 4,
-    name: "Carnival",
-    description: "Fun carnival setups",
-    count: 9,
-  },
+  { id: 4, name: "Carnival", description: "Fun carnival setups", count: 9 },
   {
     id: 5,
     name: "Festival Decor",
@@ -46,7 +38,6 @@ const INIT_CATEGORIES = [
 
 const BLANK = { name: "", color: "#C49A9A", description: "" };
 
-// ── Shared input sx ──
 const inputSx = {
   "& .MuiOutlinedInput-root": {
     fontFamily: fontSans,
@@ -54,29 +45,74 @@ const inputSx = {
     borderRadius: "10px",
     background: bg,
     "& fieldset": { borderColor: border },
-    "&:hover fieldset": { borderColor: btnColor },
-    "&.Mui-focused fieldset": { borderColor: btnColor, borderWidth: "1px" },
+    "&:hover fieldset": { borderColor: slate },
+    "&.Mui-focused fieldset": { borderColor: slate, borderWidth: "1px" },
   },
   "& .MuiInputBase-input": { padding: "11px 14px", color: slate },
 };
 
-export default function CategoryPage() {
+export default function Admin_category() {
   const [categories, setCategories] = useState(INIT_CATEGORIES);
   const [form, setForm] = useState({ ...BLANK });
-  const [editingId, setEditingId] = useState(null); // null = add new
+  const [editingId, setEditingId] = useState(null);
 
-  // ─────────────────────────────────────────
+  const handleSave = () => {
+    if (!form.name.trim()) return;
+    if (editingId) {
+      setCategories(
+        categories.map((c) =>
+          c.id === editingId
+            ? {
+                ...c,
+                name: form.name,
+                color: form.color,
+                description: form.description,
+              }
+            : c,
+        ),
+      );
+      setEditingId(null);
+    } else {
+      setCategories([...categories, { ...form, id: Date.now(), count: 0 }]);
+    }
+    setForm({ ...BLANK });
+  };
+
+  const handleEdit = (cat) => {
+    setEditingId(cat.id);
+    setForm({ name: cat.name, color: cat.color, description: cat.description });
+    // Mobile: scroll to form
+    setTimeout(
+      () =>
+        document
+          .getElementById("cat-form")
+          ?.scrollIntoView({ behavior: "smooth" }),
+      100,
+    );
+  };
+
+  const handleDelete = (id) => {
+    setCategories(categories.filter((c) => c.id !== id));
+    if (editingId === id) {
+      setEditingId(null);
+      setForm({ ...BLANK });
+    }
+  };
+
+  const handleCancel = () => {
+    setEditingId(null);
+    setForm({ ...BLANK });
+  };
+
   return (
     <Box sx={{ minHeight: "100vh" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap');
-      `}</style>
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap');`}</style>
 
-      {/* ── PAGE HEADER ── */}
+      {/* ── HEADER ── */}
       <Typography
         sx={{
           fontFamily: fontSerif,
-          fontSize: 34,
+          fontSize: { xs: 26, sm: 30, md: 34 },
           fontWeight: 600,
           color: slate,
           lineHeight: 1,
@@ -88,11 +124,11 @@ export default function CategoryPage() {
       <Typography
         sx={{
           fontFamily: fontSans,
-          fontSize: 12,
+          fontSize: { xs: 11, sm: 12 },
           color: muted,
-          textAlign: "left",
           mt: 0.5,
-          mb: 3.5,
+          mb: { xs: 2.5, md: 3.5 },
+          textAlign: "left",
         }}
       >
         Manage product categories for your decoration business
@@ -102,22 +138,19 @@ export default function CategoryPage() {
       <Box
         sx={{
           display: "flex",
-          gap: 3,
+          gap: { xs: 2, md: 3 },
           alignItems: "flex-start",
-          flexWrap: { xs: "wrap", md: "nowrap" },
+          flexDirection: { xs: "column", md: "row" }, // ← mobile: column, desktop: row
         }}
       >
-        {/* ══════════════════════════════
-            LEFT — Category List
-        ══════════════════════════════ */}
+        {/* ══ LEFT — Category List ══ */}
         <Box
           sx={{
             flex: 1,
+            width: "100%",
             display: "flex",
             flexDirection: "column",
             gap: 1.5,
-            minWidth: 0,
-            textAlign: "left",
           }}
         >
           {categories.map((cat) => (
@@ -126,71 +159,79 @@ export default function CategoryPage() {
               sx={{
                 background: "#fff",
                 borderRadius: "14px",
-                border: `1px solid ${editingId === cat.id ? `${btnColor}88` : border}`,
-                px: 3,
-                py: 2.2,
+                border: `1px solid ${editingId === cat.id ? `${slate}88` : border}`,
+                px: { xs: 2, sm: 3 },
+                py: { xs: 1.8, sm: 2.2 },
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 boxShadow: "0 2px 8px rgba(161,122,122,0.07)",
                 transition: "border-color 0.2s, box-shadow 0.2s",
                 "&:hover": {
-                  borderColor: `${btnColor}55`,
+                  borderColor: `${slate}55`,
                   boxShadow: "0 4px 16px rgba(161,122,122,0.12)",
                 },
               }}
             >
               {/* Left — dot + name + count */}
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
                 <Box>
                   <Typography
                     sx={{
                       fontFamily: fontSans,
-                      fontSize: 14,
+                      fontSize: { xs: 13, sm: 14 },
                       fontWeight: 700,
                       color: slate,
+                      textAlign: "left",
                     }}
                   >
                     {cat.name}
                   </Typography>
                   <Typography
-                    sx={{ fontFamily: fontSans, fontSize: 11, color: muted }}
+                    sx={{
+                      fontFamily: fontSans,
+                      fontSize: 11,
+                      color: muted,
+                      textAlign: "left",
+                    }}
                   >
                     {cat.count} products
                   </Typography>
                 </Box>
               </Box>
 
-              {/* Right — Edit + Del buttons */}
-              <Box sx={{ display: "flex", gap: 1, flexShrink: 0 }}>
+              {/* Right — Edit + Del */}
+              <Box sx={{ display: "flex", gap: 0.8, flexShrink: 0 }}>
                 <Button
+                  onClick={() => handleEdit(cat)}
                   size="small"
                   variant="contained"
                   sx={{
                     fontFamily: fontSans,
-                    fontSize: 11,
+                    fontSize: { xs: 10, sm: 11 },
                     fontWeight: 700,
-                    background: btnColor,
+                    background: slate,
                     borderRadius: "8px",
-                    px: 2,
+                    px: { xs: 1.5, sm: 2 },
                     py: 0.7,
                     minWidth: 0,
                     boxShadow: "none",
-                    "&:hover": { background: "#8a6060", boxShadow: "none" },
+                    "&:hover": { background: muted, boxShadow: "none" },
                   }}
                 >
                   Edit
                 </Button>
                 <Button
+                  onClick={() => handleDelete(cat.id)}
                   size="small"
                   variant="contained"
                   sx={{
                     fontFamily: fontSans,
-                    fontSize: 11,
+                    fontSize: { xs: 10, sm: 11 },
                     fontWeight: 700,
                     background: "#c03030",
                     borderRadius: "8px",
-                    px: 2,
+                    px: { xs: 1.5, sm: 2 },
                     py: 0.7,
                     minWidth: 0,
                     boxShadow: "none",
@@ -203,7 +244,6 @@ export default function CategoryPage() {
             </Box>
           ))}
 
-          {/* Empty state */}
           {categories.length === 0 && (
             <Box sx={{ textAlign: "center", py: 8 }}>
               <Typography
@@ -214,39 +254,35 @@ export default function CategoryPage() {
             </Box>
           )}
         </Box>
-        {/* ══ LEFT END ══ */}
 
-        {/* ══════════════════════════════
-            RIGHT — Add / Edit Form
-        ══════════════════════════════ */}
+        {/* ══ RIGHT — Form ══ */}
         <Box
+          id="cat-form"
           sx={{
-            width: 420,
+            width: { xs: "100%", md: 380, lg: 420 },
             flexShrink: 0,
             background: "#fff",
             borderRadius: "16px",
             border: `1px solid ${border}`,
-            p: 3,
+            p: { xs: 2, sm: 3 },
             boxShadow: "0 2px 12px rgba(161,122,122,0.08)",
             position: { md: "sticky" },
             top: { md: 24 },
           }}
         >
-          {/* Form title */}
           <Typography
             sx={{
               fontFamily: fontSerif,
-              fontSize: 24,
+              fontSize: { xs: 20, sm: 24 },
               fontWeight: 600,
               color: muted,
               mb: 1.5,
-              textAlign: "left",
             }}
           >
             {editingId ? "Edit Category" : "Add New Category"}
           </Typography>
 
-          {/* Category Name */}
+          {/* Name */}
           <Box sx={{ mb: 2 }}>
             <Typography
               sx={{
@@ -257,7 +293,6 @@ export default function CategoryPage() {
                 textTransform: "uppercase",
                 color: slate,
                 mb: 0.8,
-                textAlign: "left",
               }}
             >
               Category Name
@@ -273,7 +308,7 @@ export default function CategoryPage() {
           </Box>
 
           {/* Description */}
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ mb: 2.5 }}>
             <Typography
               sx={{
                 fontFamily: fontSans,
@@ -283,7 +318,6 @@ export default function CategoryPage() {
                 textTransform: "uppercase",
                 color: slate,
                 mb: 0.8,
-                textAlign: "left",
               }}
             >
               Description
@@ -291,7 +325,7 @@ export default function CategoryPage() {
             <TextField
               fullWidth
               multiline
-              rows={4}
+              rows={3}
               value={form.description}
               onChange={(e) =>
                 setForm({ ...form, description: e.target.value })
@@ -304,25 +338,23 @@ export default function CategoryPage() {
                   borderRadius: "10px",
                   background: bg,
                   "& fieldset": { borderColor: border },
-                  "&:hover fieldset": { borderColor: btnColor },
+                  "&:hover fieldset": { borderColor: slate },
                   "&.Mui-focused fieldset": {
-                    borderColor: btnColor,
+                    borderColor: slate,
                     borderWidth: "1px",
                   },
                 },
-                "& .MuiInputBase-input": {
-                  padding: "11px 14px",
-                  color: slate,
-                },
+                "& .MuiInputBase-input": { padding: "11px 14px", color: slate },
               }}
             />
           </Box>
 
-          {/* Save button */}
+          {/* Save */}
           <Button
             fullWidth
             variant="contained"
             disabled={!form.name.trim()}
+            onClick={handleSave}
             sx={{
               fontFamily: fontSans,
               fontSize: 13,
@@ -331,19 +363,19 @@ export default function CategoryPage() {
               borderRadius: "10px",
               py: 1.4,
               boxShadow: "none",
-              letterSpacing: "0.3px",
               "&:hover": { background: muted, boxShadow: "none" },
-              "&.Mui-disabled": { background: `${btnColor}55`, color: "#fff" },
+              "&.Mui-disabled": { background: `${slate}55`, color: "#fff" },
             }}
           >
             {editingId ? "Update Category" : "Save Category"}
           </Button>
 
-          {/* Cancel button (only when editing) */}
+          {/* Cancel */}
           {editingId && (
             <Button
               fullWidth
               variant="outlined"
+              onClick={handleCancel}
               sx={{
                 mt: 1.5,
                 fontFamily: fontSans,
@@ -353,14 +385,13 @@ export default function CategoryPage() {
                 borderColor: border,
                 borderRadius: "10px",
                 py: 1.2,
-                "&:hover": { borderColor: btnColor, color: btnColor },
+                "&:hover": { borderColor: slate, color: slate },
               }}
             >
               Cancel
             </Button>
           )}
         </Box>
-        {/* ══ RIGHT END ══ */}
       </Box>
     </Box>
   );

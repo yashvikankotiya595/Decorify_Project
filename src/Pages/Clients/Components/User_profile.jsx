@@ -34,7 +34,6 @@ import {
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 
-
 // ── Theme ──────────────────────────────────────────────────────────────────
 const theme = createTheme({
   palette: { background: { default: "#F8F3F1" }, primary: { main: "#a17a7a" } },
@@ -430,7 +429,7 @@ function ProfileSection({ onNav }) {
             display: { xs: "none", sm: "flex" },
           }}
         >
-          Edit 
+          Edit
         </Button>
       </Box>
 
@@ -520,8 +519,6 @@ function ProfileSection({ onNav }) {
           value="Ahmedabad, Gujarat"
         />
       </Paper>
-
-      
     </Box>
   );
 }
@@ -582,7 +579,13 @@ function WishlistSection() {
                   {item.name}
                 </Typography>
                 <Typography
-                  sx={{ fontSize: 15, fontWeight: 500, color: C.btn, mt: 0.3,textAlign:"left" }}
+                  sx={{
+                    fontSize: 15,
+                    fontWeight: 500,
+                    color: C.btn,
+                    mt: 0.3,
+                    textAlign: "left",
+                  }}
                 >
                   {item.price}
                 </Typography>
@@ -602,8 +605,8 @@ function WishlistSection() {
                 }}
               />
               <Button
-              component={Link}
-                  to="/rentItem"
+                component={Link}
+                to="/rentItem"
                 size="small"
                 variant="contained"
                 sx={{
@@ -616,7 +619,6 @@ function WishlistSection() {
                   // px: 1.5,
                   // py: 1.0,
 
-              
                   "&:hover": { background: C.slate },
                 }}
               >
@@ -664,7 +666,13 @@ function OrdersSection({ onTrack }) {
           >
             <Box>
               <Typography
-                sx={{ fontSize: 13, fontWeight: 600, color: C.slate, mb: 0.4,textAlign:"left" }}
+                sx={{
+                  fontSize: 13,
+                  fontWeight: 600,
+                  color: C.slate,
+                  mb: 0.4,
+                  textAlign: "left",
+                }}
               >
                 {o.name}
               </Typography>
@@ -679,7 +687,7 @@ function OrdersSection({ onTrack }) {
                 variant="contained"
                 sx={{
                   background: C.btn,
-                  display:"flex",
+                  display: "flex",
                   color: "#fff",
                   fontSize: 10,
                   fontWeight: 600,
@@ -688,7 +696,7 @@ function OrdersSection({ onTrack }) {
                   borderRadius: "6px",
                   px: 1.4,
                   py: 0.5,
-                  
+
                   "&:hover": { background: C.slate },
                 }}
               >
@@ -1005,7 +1013,7 @@ function SidebarContent({
       sx={{
         background: S.grad,
         width: 260,
-        height:"auto",
+     
         pt: {
           sm: 0,
           md: 2.4,
@@ -1027,9 +1035,8 @@ function SidebarContent({
       {/* Avatar + Name */}
       <Box
         sx={{
-
           p: {
-            xs:"0px 20px 20px 0px",
+            xs: "0px 20px 20px 0px",
             sm: "0px 20px 20px 0px",
             md: "24px 20px",
           },
@@ -1108,7 +1115,6 @@ function SidebarContent({
 
         {/* Logout */}
         <ListItemButton
-        
           sx={{
             borderRadius: "10px",
             py: 1.3,
@@ -1183,12 +1189,12 @@ function MobileTopBar({ activeSection, onNav }) {
             width: {
               xs: 33,
               B290: 40,
-              md:40
+              md: 40,
             },
             height: {
               xs: 33,
               B290: 40,
-              md:40
+              md: 40,
             },
             borderRadius: "10px",
             background: S.hamBg,
@@ -1205,9 +1211,9 @@ function MobileTopBar({ activeSection, onNav }) {
           sx={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: {
-              xs:"17px",
-              B290:"18px",
-              md:"18px"
+              xs: "17px",
+              B290: "18px",
+              md: "18px",
             },
             fontWeight: 600,
             color: S.text,
@@ -1236,7 +1242,7 @@ function MobileTopBar({ activeSection, onNav }) {
               "&:hover": { background: "rgba(255,255,255,0.3)" },
             }}
           >
-            Edit 
+            Edit
           </Button>
         )}
 
@@ -1270,9 +1276,10 @@ function MobileTopBar({ activeSection, onNav }) {
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
           sx: {
-            height: "100vh",
-            background: "transparent",
+            minHeight: "100vh",
+            background: S.grad,
             boxShadow: "none",
+            overflowY: "auto",
           },
         }}
       >
