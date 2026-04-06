@@ -557,16 +557,7 @@ function WishlistSection() {
               "&:hover": { borderColor: C.sub },
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                flexWrap: { xs: "wrap", sm: "nowrap" }, // 👈 important
-                width: { xs: "100%", sm: "auto" }, // 👈 mobile ma full width
-                justifyContent: { xs: "space-between", sm: "flex-end" }, // 👈 spacing fix
-              }}
-            >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.7 }}>
               <Box
                 sx={{
                   width: 40,
@@ -600,7 +591,16 @@ function WishlistSection() {
                 </Typography>
               </Box>
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                flexWrap: { xs: "wrap", sm: "nowrap" }, // 👈 important
+                width: { xs: "100%", sm: "auto" }, // 👈 mobile ma full width
+                justifyContent: { xs: "space-between", sm: "flex-start" },
+              }}
+            >
               <Chip
                 label={item.tag}
                 size="small"
@@ -619,15 +619,12 @@ function WishlistSection() {
                 size="small"
                 variant="contained"
                 sx={{
-                  background: C.btn,
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: 1,
-                  textTransform: "uppercase",
-                  borderRadius: "6px",
-                  width: { xs: "100%", sm: "auto" }, // 👈 mobile ma full line
-                  mt: { xs: 1, sm: 0 }, // 👈 spacing niche
-                  "&:hover": { background: C.slate },
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  flexWrap: { xs: "wrap", sm: "nowrap" }, // 👈 important
+                  width: { xs: "100%", sm: "auto" }, // 👈 mobile ma full width
+                  justifyContent: { xs: "space-between", sm: "flex-end" }, // 👈 spacing fix
                 }}
               >
                 Book Now
