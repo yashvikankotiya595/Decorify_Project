@@ -623,7 +623,6 @@ function WishlistSection() {
                   alignItems: "center",
                   gap: 1,
                   flexWrap: { xs: "wrap", sm: "nowrap" }, // 👈 important
-                  width: { xs: "100%", sm: "100%" }, // 👈 mobile ma full width
                   justifyContent: { xs: "space-between", sm: "flex-start" }, // 👈 spacing fix
                 }}
               >
