@@ -46,7 +46,7 @@ const services = [
       <CelebrationIcon sx={{ fontSize: 50, color: "rgba(255,255,255,0.5)" }} />
     ),
     title: "Balloon Decoration",
-    desc: "Custom balloon arches, columns, ceiling fills, and organic balloon art.",
+    desc: "Elegant custom balloon arches, columns, ceiling fills, and organic designs",
   },
   {
     icon: (

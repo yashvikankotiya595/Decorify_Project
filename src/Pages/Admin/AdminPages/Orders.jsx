@@ -217,6 +217,7 @@ export default function Orders() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Booking Id
@@ -226,6 +227,7 @@ export default function Orders() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Customer
@@ -234,6 +236,7 @@ export default function Orders() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Product
@@ -243,6 +246,7 @@ export default function Orders() {
                           sx={{
                             color: muted,
                             fontWeight: 600,
+                            textAlign: "center",
                           }}
                         >
                           Dates
@@ -252,6 +256,7 @@ export default function Orders() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Amount
@@ -260,6 +265,7 @@ export default function Orders() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Status
@@ -269,6 +275,7 @@ export default function Orders() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Actions
@@ -289,6 +296,7 @@ export default function Orders() {
                           <Box
                             sx={{
                               display: "flex",
+                              justifyContent: "center",
                               alignItems: "center",
                               gap: 1,
                             }}
@@ -310,6 +318,7 @@ export default function Orders() {
                           <Box
                             sx={{
                               display: "flex",
+                              justifyContent: "center",
                               alignItems: "center",
                               gap: 1,
                             }}
@@ -317,7 +326,6 @@ export default function Orders() {
                             <Typography
                               sx={{
                                 fontSize: 13,
-
                                 color: slate,
                                 fontFamily: fontSans,
                               }}
@@ -327,12 +335,24 @@ export default function Orders() {
                           </Box>
                         </TableCell>
 
-                        <TableCell sx={{ fontSize: 13, color: slate }}>
+                        <TableCell
+                          sx={{
+                            fontSize: 13,
+                            color: slate,
+                            textAlign: "center",
+                          }}
+                        >
                           {row.product}
                         </TableCell>
 
                         {!isMobile && (
-                          <TableCell sx={{ fontSize: 13, color: slate }}>
+                          <TableCell
+                            sx={{
+                              fontSize: 13,
+                              color: slate,
+                              textAlign: "center",
+                            }}
+                          >
                             {row.dates}
                           </TableCell>
                         )}
@@ -341,7 +361,7 @@ export default function Orders() {
                           <Typography
                             sx={{
                               fontSize: 13,
-
+                              textAlign: "center",
                               color: slate,
                               fontFamily: fontSans,
                             }}
@@ -350,7 +370,7 @@ export default function Orders() {
                           </Typography>
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           <Box
                             sx={{
                               background: row.sClr.bg,
@@ -368,7 +388,7 @@ export default function Orders() {
                           </Box>
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           <Box
                             onClick={() => {
                               /* pachi backend sathe connect karjo */

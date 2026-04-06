@@ -12,7 +12,7 @@ import {
 const fontSans = "'Montserrat', sans-serif";
 const fontSerif = "'Cormorant Garamond', serif";
 const muted = "#735f5f";
-const bg = "#F5EFEc";
+const bg = "#F8F3F1";
 const slate = "#a17a7a";
 const border = "rgba(196,154,154,0.22)";
 
@@ -58,7 +58,7 @@ const STATS = [
 
 export default function WhyChooseUs() {
   return (
-    <Box sx={{ background: bg, py: { xs: 7, md: 10 } }}>
+    <Box sx={{  py: { xs: 7, md: 10 } }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap');
         .wcu-card:hover {
@@ -156,7 +156,11 @@ export default function WhyChooseUs() {
           sx={{ mb: { xs: 5, md: 7 } }}
         >
           {FEATURES.map((f, i) => (
-            <Grid item xs={12} sm={6} md={4} key={i} sx={{ display: "flex" }}>
+            <Grid
+              size={{ xs: 12, sm: 6, md: 4 }}
+              key={i}
+              sx={{ display: "flex", }}
+            >
               <Box
                 className="wcu-card"
                 sx={{
@@ -172,6 +176,7 @@ export default function WhyChooseUs() {
                   boxSizing: "border-box",
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   cursor: "default",
+                  background: bg,
                 }}
               >
                 {/* Icon circle */}
