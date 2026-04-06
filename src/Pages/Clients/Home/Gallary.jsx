@@ -88,9 +88,8 @@ const images = [
 
 const categories = ["All", "Wedding", "Birthday", "Corporate"];
 
-
 const Gallary = () => {
-    const [active, setActive] = useState("All");
+  const [active, setActive] = useState("All");
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(0);
 
@@ -121,349 +120,377 @@ const Gallary = () => {
   });
   return (
     <>
-        <ThemeProvider theme={theme}>
-      <Container maxWidth="xl">
-        <Box sx={{ minHeight: "100vh", py: 7 }}>
-          <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');`}</style>
+      <ThemeProvider theme={theme}>
+        <Container maxWidth="xl">
+          <Box sx={{ minHeight: "100vh", py: 7 }}>
+            <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');`}</style>
 
-          {/* ── Header ── */}
-          <Box textAlign="center" mb={6}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 1,
-                mb: 1,
-              }}
-            >
-              <Box sx={{ width: 28, height: "1px", bgcolor: subcolor }} />
-              <Typography
-                sx={{
-                  fontFamily: fontSans,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.28em",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  color: subcolor,
-                }}
-              >
-                Inspiration
-              </Typography>
-              <Box sx={{ width: 28, height: "1px", bgcolor: subcolor }} />
-            </Box>
-
-            <Typography
-              sx={{
-                fontFamily: fontSerif,
-                fontSize: { xs: "30px", B334: "35px", sm: "40px", md: "50px" },
-                fontWeight: 400,
-                color: slate,
-                lineHeight: 1.1,
-                mb: 2,
-                letterSpacing: "-0.5px",
-              }}
-            >
-              Gallery &amp; Inspiration
-            </Typography>
-
-            <Typography
-              sx={{
-                fontFamily: fontSans,
-                fontWeight: 300,
-                fontSize: { xs: "0.82rem", md: "0.88rem" },
-                color: muted,
-                maxWidth: 440,
-                mx: "auto",
-                lineHeight: 1.8,
-                mb: { xs: 3, md: 4 },
-              }}
-            >
-              Real setups from real events — get inspired for your upcoming
-              celebration.
-            </Typography>
-          </Box>
-
-          {/* ── Filter Chips ── */}
-          <Box
-            display="flex"
-            justifyContent="center"
-            flexWrap="wrap"
-            gap={1.5}
-            mb={5}
-          >
-            {categories.map((cat) => (
-              <Chip
-                key={cat}
-                label={cat}
-                onClick={() => setActive(cat)}
-                sx={{
-                  fontFamily: fontSans,
-                  fontWeight: 500,
-                  fontSize: 12,
-                  letterSpacing: 1.5,
-                  px: 1,
-                  background: active === cat ? btncolor : "transparent",
-                  color: active === cat ? "#fff" : muted,
-                  border: `1px solid ${active === cat ? btncolor : slate + "55"}`,
-                  borderRadius: "2px",
-                  transition: "all 0.25s ease",
-                  "&:hover": {
-                    background: active === cat ? btncolor : `${slate}22`,
-                    borderColor: btncolor,
-                  },
-                }}
-              />
-            ))}
-          </Box>
-
-          {/* ── Masonry Grid ── */}
-          {/* ✅ Image width vadharvी: span "span 2" → "span 3" (full width)  */}
-          {/* ✅ Image height vadharvī: height md: 500 → md: 700             */}
-          {/* ✅ Columns vadharvā: repeat(3, 1fr) → repeat(4, 1fr)           */}
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "1fr", md: "repeat(3, 1fr)" },
-              gap: 2,
-            }}
-          >
-            {filtered.map((img, idx) => (
-              <Box
-                key={img.id}
-                onClick={() => openModal(idx)}
-                sx={{
-                   gridColumn: { xs: "span 1", sm: "span 1", md: img.span },
-                 height: img.height,
-                  borderRadius: "4px",
-                  overflow: "hidden",
-                  position: "relative",
-                  cursor: "pointer",
-                  border: border,
-                  transition: "border-color 0.3s, box-shadow 0.3s",
-                  "&:hover .overlay": { opacity: 1 },
-                  "&:hover img": { transform: "scale(1.06)" },
-                  "&:hover": {
-                    borderColor: `${subcolor}88`,
-                    boxShadow: `0 8px 40px ${slate}44`,
-                  },
-                }}
-              >
-                <Box
-                  component="img"
-                  src={img.src}
-                  alt={img.title}
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    transition: "transform 0.55s ease",
-                    filter: "brightness(0.85) saturate(0.8)",
-                  }}
-                />
-
-                <Box
-                  className="overlay"
-                  sx={{
-                    position: "absolute",
-                    inset: 0,
-                    background: `linear-gradient(to top, ${bg}ee 0%, ${bg}44 55%, transparent 100%)`,
-                    opacity: 0,
-                    transition: "opacity 0.35s ease",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-end",
-                    p: 2.5,
-                  }}
-                >
-                  <Box
-                    display="flex"
-                    alignItems="flex-end"
-                    justifyContent="space-between"
-                  >
-                    <Box>
-                      <Typography
-                        sx={{
-                          fontFamily: fontSans,
-                          fontWeight: 500,
-                          fontSize: 10,
-                          letterSpacing: 3,
-                          color: muted,
-                          textTransform: "uppercase",
-                          mb: 0.5,
-                        }}
-                      >
-                        {img.category}
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontFamily: fontSerif,
-                          fontWeight: 600,
-                          fontSize: { xs: 16, md: 20 },
-                          color: subcolor,
-                          textShadow: `0 2px 8px ${slate}99`,
-                          lineHeight: 1.2,
-                        }}
-                      >
-                        {img.title}
-                      </Typography>
-                    </Box>
-                    <ZoomInIcon
-                      sx={{
-                        color: subcolor,
-                        fontSize: 22,
-                        opacity: 0.8,
-                        mb: 0.3,
-                      }}
-                    />
-                  </Box>
-                </Box>
-              </Box>
-            ))}
-          </Box>
-
-          {/* ── Lightbox Modal ── */}
-          <Modal
-            open={open}
-            onClose={() => setOpen(false)}
-            closeAfterTransition
-            slots={{ backdrop: Backdrop }}
-            slotProps={{ backdrop: { timeout: 300 } }}
-          >
-            <Fade in={open}>
+            {/* ── Header ── */}
+            <Box textAlign="center" mb={6}>
               <Box
                 sx={{
-                  position: "fixed",
-                  inset: 0,
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: `${bg}f2`,
-                  backdropFilter: "blur(16px)",
+                  gap: 1,
+                  mb: 1,
                 }}
               >
-                <IconButton
-                  onClick={() => setOpen(false)}
-                  sx={{
-                    position: "absolute",
-                    top: 20,
-                    right: 24,
-                    color: muted,
-                    background: `${bgCard}cc`,
-                    border: border,
-                    "&:hover": { color: subcolor, borderColor: subcolor },
-                  }}
-                >
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-
-                <IconButton
-                  onClick={prev}
-                  sx={{
-                    position: "absolute",
-                    left: { xs: 8, md: 32 },
-                    color: muted,
-                    background: `${bgCard}cc`,
-                    border: border,
-                    "&:hover": { color: subcolor, borderColor: subcolor },
-                  }}
-                >
-                  <ArrowBackIosNewIcon fontSize="small" />
-                </IconButton>
-
                 <Box
                   sx={{
-                    maxWidth: { xs: "90vw", md: "68vw" },
+                    width: 28,
+                    height: "1px",
+                    bgcolor: subcolor,
+                    display: {
+                      sm: "flex",
+                      xs: "none",
+                    },
+                  }}
+                />
+                <Typography
+                  sx={{
+                    fontFamily: fontSans,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.28em",
+                    fontSize: "10px",
+                    fontWeight: 600,
+                    color: subcolor,
+                  }}
+                >
+                  Inspiration
+                </Typography>
+                <Box
+                  sx={{
+                    width: 28,
+                    height: "1px",
+                    bgcolor: subcolor,
+                    display: {
+                      sm: "flex",
+                      xs: "none",
+                    },
+                  }}
+                />
+              </Box>
+
+              <Typography
+                sx={{
+                  fontFamily: fontSerif,
+                  fontSize: {
+                    xs: "30px",
+                    B334: "35px",
+                    sm: "40px",
+                    md: "50px",
+                  },
+                  fontWeight: 400,
+                  color: slate,
+                  lineHeight: 1.1,
+                  mb: 2,
+                  letterSpacing: "-0.5px",
+                }}
+              >
+                Gallery &amp; Inspiration
+              </Typography>
+
+              <Typography
+                sx={{
+                  fontFamily: fontSans,
+                  fontWeight: 300,
+                  fontSize: { xs: "0.82rem", md: "0.88rem" },
+                  color: muted,
+                  maxWidth: 440,
+                  mx: "auto",
+                  lineHeight: 1.8,
+                  mb: { xs: 3, md: 4 },
+                }}
+              >
+                Real setups from real events — get inspired for your upcoming
+                celebration.
+              </Typography>
+            </Box>
+
+            {/* ── Filter Chips ── */}
+            <Box
+              display="flex"
+              justifyContent="center"
+              flexWrap="wrap"
+              gap={1.5}
+              mb={5}
+            >
+              {categories.map((cat) => (
+                <Chip
+                  key={cat}
+                  label={cat}
+                  onClick={() => setActive(cat)}
+                  sx={{
+                    fontFamily: fontSans,
+                    fontWeight: 500,
+                    fontSize: 12,
+                    letterSpacing: 1.5,
+                    px: 1,
+                    background: active === cat ? btncolor : "transparent",
+                    color: active === cat ? "#fff" : muted,
+                    border: `1px solid ${active === cat ? btncolor : slate + "55"}`,
+                    borderRadius: "2px",
+                    transition: "all 0.25s ease",
+                    "&:hover": {
+                      background: active === cat ? btncolor : `${slate}22`,
+                      borderColor: btncolor,
+                    },
+                  }}
+                />
+              ))}
+            </Box>
+
+            {/* ── Masonry Grid ── */}
+            {/* ✅ Image width vadharvी: span "span 2" → "span 3" (full width)  */}
+            {/* ✅ Image height vadharvī: height md: 500 → md: 700             */}
+            {/* ✅ Columns vadharvā: repeat(3, 1fr) → repeat(4, 1fr)           */}
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  sm: "1fr",
+                  md: "repeat(3, 1fr)",
+                },
+                gap: 2,
+              }}
+            >
+              {filtered.map((img, idx) => (
+                <Box
+                  key={img.id}
+                  onClick={() => openModal(idx)}
+                  sx={{
+                    gridColumn: { xs: "span 1", sm: "span 1", md: img.span },
+                    height: img.height,
                     borderRadius: "4px",
                     overflow: "hidden",
-                    border: `1px solid ${slate}55`,
-                    boxShadow: `0 32px 80px ${slate}22`,
+                    position: "relative",
+                    cursor: "pointer",
+                    border: border,
+                    transition: "border-color 0.3s, box-shadow 0.3s",
+                    "&:hover .overlay": { opacity: 1 },
+                    "&:hover img": { transform: "scale(1.06)" },
+                    "&:hover": {
+                      borderColor: `${subcolor}88`,
+                      boxShadow: `0 8px 40px ${slate}44`,
+                    },
                   }}
                 >
                   <Box
                     component="img"
-                    src={filtered[current]?.src}
-                    alt={filtered[current]?.title}
+                    src={img.src}
+                    alt={img.title}
                     sx={{
                       width: "100%",
-                      maxHeight: "68vh",
+                      height: "100%",
                       objectFit: "cover",
                       display: "block",
-                      filter: "brightness(0.9) saturate(0.85)",
+                      transition: "transform 0.55s ease",
+                      filter: "brightness(0.85) saturate(0.8)",
                     }}
                   />
+
                   <Box
+                    className="overlay"
                     sx={{
-                      background: bgCard,
-                      borderTop: border,
-                      px: 3,
-                      py: 2,
+                      position: "absolute",
+                      inset: 0,
+                      background: `linear-gradient(to top, ${bg}ee 0%, ${bg}44 55%, transparent 100%)`,
+                      opacity: 0,
+                      transition: "opacity 0.35s ease",
                       display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
+                      flexDirection: "column",
+                      justifyContent: "flex-end",
+                      p: 2.5,
                     }}
                   >
-                    <Box>
+                    <Box
+                      display="flex"
+                      alignItems="flex-end"
+                      justifyContent="space-between"
+                    >
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: fontSans,
+                            fontWeight: 500,
+                            fontSize: 10,
+                            letterSpacing: 3,
+                            color: muted,
+                            textTransform: "uppercase",
+                            mb: 0.5,
+                          }}
+                        >
+                          {img.category}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: fontSerif,
+                            fontWeight: 600,
+                            fontSize: { xs: 16, md: 20 },
+                            color: subcolor,
+                            textShadow: `0 2px 8px ${slate}99`,
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {img.title}
+                        </Typography>
+                      </Box>
+                      <ZoomInIcon
+                        sx={{
+                          color: subcolor,
+                          fontSize: 22,
+                          opacity: 0.8,
+                          mb: 0.3,
+                        }}
+                      />
+                    </Box>
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+
+            {/* ── Lightbox Modal ── */}
+            <Modal
+              open={open}
+              onClose={() => setOpen(false)}
+              closeAfterTransition
+              slots={{ backdrop: Backdrop }}
+              slotProps={{ backdrop: { timeout: 300 } }}
+            >
+              <Fade in={open}>
+                <Box
+                  sx={{
+                    position: "fixed",
+                    inset: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: `${bg}f2`,
+                    backdropFilter: "blur(16px)",
+                  }}
+                >
+                  <IconButton
+                    onClick={() => setOpen(false)}
+                    sx={{
+                      position: "absolute",
+                      top: 20,
+                      right: 24,
+                      color: muted,
+                      background: `${bgCard}cc`,
+                      border: border,
+                      "&:hover": { color: subcolor, borderColor: subcolor },
+                    }}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+
+                  <IconButton
+                    onClick={prev}
+                    sx={{
+                      position: "absolute",
+                      left: { xs: 8, md: 32 },
+                      color: muted,
+                      background: `${bgCard}cc`,
+                      border: border,
+                      "&:hover": { color: subcolor, borderColor: subcolor },
+                    }}
+                  >
+                    <ArrowBackIosNewIcon fontSize="small" />
+                  </IconButton>
+
+                  <Box
+                    sx={{
+                      maxWidth: { xs: "90vw", md: "68vw" },
+                      borderRadius: "4px",
+                      overflow: "hidden",
+                      border: `1px solid ${slate}55`,
+                      boxShadow: `0 32px 80px ${slate}22`,
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={filtered[current]?.src}
+                      alt={filtered[current]?.title}
+                      sx={{
+                        width: "100%",
+                        maxHeight: "68vh",
+                        objectFit: "cover",
+                        display: "block",
+                        filter: "brightness(0.9) saturate(0.85)",
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        background: bgCard,
+                        borderTop: border,
+                        px: 3,
+                        py: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          sx={{
+                            fontFamily: fontSans,
+                            fontSize: 10,
+                            letterSpacing: 3,
+                            color: muted,
+                            textTransform: "uppercase",
+                            mb: 0.3,
+                          }}
+                        >
+                          {filtered[current]?.category}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontFamily: fontSerif,
+                            fontWeight: 600,
+                            fontSize: 22,
+                            color: subcolor,
+                            textShadow: `0 2px 8px ${slate}88`,
+                          }}
+                        >
+                          {filtered[current]?.title}
+                        </Typography>
+                      </Box>
                       <Typography
                         sx={{
                           fontFamily: fontSans,
-                          fontSize: 10,
-                          letterSpacing: 3,
+                          fontSize: 12,
                           color: muted,
-                          textTransform: "uppercase",
-                          mb: 0.3,
+                          letterSpacing: 2,
                         }}
                       >
-                        {filtered[current]?.category}
-                      </Typography>
-                      <Typography
-                        sx={{
-                          fontFamily: fontSerif,
-                          fontWeight: 600,
-                          fontSize: 22,
-                          color: subcolor,
-                          textShadow: `0 2px 8px ${slate}88`,
-                        }}
-                      >
-                        {filtered[current]?.title}
+                        {current + 1} / {filtered.length}
                       </Typography>
                     </Box>
-                    <Typography
-                      sx={{
-                        fontFamily: fontSans,
-                        fontSize: 12,
-                        color: muted,
-                        letterSpacing: 2,
-                      }}
-                    >
-                      {current + 1} / {filtered.length}
-                    </Typography>
                   </Box>
+
+                  <IconButton
+                    onClick={next}
+                    sx={{
+                      position: "absolute",
+                      right: { xs: 8, md: 32 },
+                      color: muted,
+                      background: `${bgCard}cc`,
+                      border: border,
+                      "&:hover": { color: subcolor, borderColor: subcolor },
+                    }}
+                  >
+                    <ArrowForwardIosIcon fontSize="small" />
+                  </IconButton>
                 </Box>
-
-                <IconButton
-                  onClick={next}
-                  sx={{
-                    position: "absolute",
-                    right: { xs: 8, md: 32 },
-                    color: muted,
-                    background: `${bgCard}cc`,
-                    border: border,
-                    "&:hover": { color: subcolor, borderColor: subcolor },
-                  }}
-                >
-                  <ArrowForwardIosIcon fontSize="small" />
-                </IconButton>
-              </Box>
-            </Fade>
-          </Modal>
-        </Box>
-      </Container>
-    </ThemeProvider>
+              </Fade>
+            </Modal>
+          </Box>
+        </Container>
+      </ThemeProvider>
     </>
-  )
-}
+  );
+};
 
-export default Gallary
-
+export default Gallary;

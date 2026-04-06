@@ -557,7 +557,16 @@ function WishlistSection() {
               "&:hover": { borderColor: C.sub },
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.7 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                flexWrap: { xs: "wrap", sm: "nowrap" }, // 👈 important
+                width: { xs: "100%", sm: "auto" }, // 👈 mobile ma full width
+                justifyContent: { xs: "space-between", sm: "flex-end" }, // 👈 spacing fix
+              }}
+            >
               <Box
                 sx={{
                   width: 40,
@@ -616,9 +625,8 @@ function WishlistSection() {
                   letterSpacing: 1,
                   textTransform: "uppercase",
                   borderRadius: "6px",
-                  // px: 1.5,
-                  // py: 1.0,
-
+                  width: { xs: "100%", sm: "auto" }, // 👈 mobile ma full line
+                  mt: { xs: 1, sm: 0 }, // 👈 spacing niche
                   "&:hover": { background: C.slate },
                 }}
               >
@@ -1013,7 +1021,7 @@ function SidebarContent({
       sx={{
         background: S.grad,
         width: 260,
-     
+
         pt: {
           sm: 0,
           md: 2.4,

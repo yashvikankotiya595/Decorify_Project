@@ -79,7 +79,17 @@ export default function WhyChooseUs() {
               mb: 1,
             }}
           >
-            <Box sx={{ width: 28, height: "1px", background: slate }} />
+            <Box
+              sx={{
+                width: 28,
+                height: "1px",
+                background: slate,
+                display: {
+                  sm: "flex",
+                  xs: "none",
+                },
+              }}
+            />
             <Typography
               sx={{
                 fontFamily: fontSans,
@@ -92,7 +102,17 @@ export default function WhyChooseUs() {
             >
               Why Choose Us
             </Typography>
-            <Box sx={{ width: 28, height: "1px", background: slate }} />
+            <Box
+              sx={{
+                width: 28,
+                height: "1px",
+                background: slate,
+                display: {
+                  sm: "flex",
+                  xs: "none",
+                },
+              }}
+            />
           </Box>
 
           <Typography
@@ -133,18 +153,10 @@ export default function WhyChooseUs() {
         <Grid
           container
           spacing={{ xs: 2, sm: 2.5, md: 3 }}
-          
           sx={{ mb: { xs: 5, md: 7 } }}
         >
           {FEATURES.map((f, i) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              key={i}
-              sx={{ display: "flex" }} 
-            >
+            <Grid item xs={12} sm={6} md={4} key={i} sx={{ display: "flex" }}>
               <Box
                 className="wcu-card"
                 sx={{
