@@ -132,17 +132,17 @@ const AdminLayout = () => {
             },
           }}
         >
-          {activePage === "dashboard" && <Dashboard />}
-          {/* Baaki pages add karo same pattern ma: */}
-          {activePage === "products" && <Product />}
-          {activePage === "categories" && <Admin_category />}
-          {activePage === "orders" && <Orders />}
-          {activePage === "returns" && <Returns />}
-          {activePage === "refunds" && <Refunds />}
-          {activePage === "users" && <Users />}
-          {activePage === "payments" && <Payment />}
-          {activePage === "contact" && <Contact />}
-          {activePage === "settings" && <Settings />}
+        
+          {activePage === "dashboard" && <Dashboard />}   {/*  done */} 
+          {activePage === "products" && <Product />}  {/* done*/}
+          {activePage === "categories" && <Admin_category />}  {/* add category nu form ma width ochi karvi */}
+          {activePage === "orders" && <Orders />} {/* done */} 
+          {activePage === "returns" && <Returns />}  {/*  heading ne left ma lavvu*/}
+          {activePage === "refunds" && <Refunds />}  {/* price details niche left ma lavvu */}
+          {activePage === "users" && <Users />}  {/* done */}
+          {activePage === "payments" && <Payment />}  {/* search bar niche lavvu */}
+          {activePage === "contact" && <Contact />}  {/* done*/}
+          {activePage === "settings" && <Settings />}  {/* done  */}
         </Box>
       </Box>
     </Box>

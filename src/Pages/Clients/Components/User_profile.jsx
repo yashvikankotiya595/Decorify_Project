@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -33,6 +33,7 @@ import {
 } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom/cjs/react-router-dom";
+import axios from 'axios';
 
 // ── Theme ──────────────────────────────────────────────────────────────────
 const theme = createTheme({
@@ -382,8 +383,50 @@ function CardHeader({ icon, title }) {
 // ═══════════════════════════════════════════════════════════════════════════
 
 function ProfileSection({ onNav }) {
+  const [open, setOpen] = useState(false); // Form open/close state
+  const [saving, setSaving] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    location: "",
+  });
+
+  // Pehli var data fetch karva mate (Autofill)
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const res = await axios.get("/api/user/profile");
+      setFormData({
+        name: res.data.name,
+        email: res.data.email,
+        phone: res.data.phone || "",
+        location: res.data.location || "",
+      });
+    };
+    fetchUserData();
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = async (e) => {
+    if (e) e.preventDefault();
+    setSaving(true);
+    try {
+        await axios.put("/api/user/update-profile", formData);
+        setOpen(false);
+        alert("Profile Updated!");
+    } catch (error) {
+        console.error("Error updating profile:", error);
+        alert("Something went wrong!");
+    } finally {
+        setSaving(false); // Loading stop (Success hoy ke Error, aa thavu joie)
+    }
+  };
   return (
     <Box>
+      {/* ── Header ── */}
       <Box
         sx={{
           display: { xs: "none", md: "flex" },
@@ -412,6 +455,7 @@ function ProfileSection({ onNav }) {
           </Typography>
         </Box>
         <Button
+          onClick={() => setOpen(true)}
           variant="contained"
           startIcon={<Edit sx={{ fontSize: 11 }} />}
           sx={{
@@ -429,12 +473,13 @@ function ProfileSection({ onNav }) {
             display: { xs: "none", sm: "flex" },
           }}
         >
-          Edit
+          Edit Profile
         </Button>
       </Box>
 
       <Divider sx={{ borderColor: C.bdr, my: 2.2 }} />
 
+      {/* ── Stats ── */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {[
           ["3", "Total Orders"],
@@ -447,13 +492,10 @@ function ProfileSection({ onNav }) {
               sx={{
                 borderColor: C.bdr,
                 borderRadius: "16px",
-                // px: { xs: 2, sm: 3, md: 12 },
-                // py: 3,
                 px: { xs: 2, sm: 3, md: 10 },
                 py: 4,
                 textAlign: "center",
                 background: C.card,
-                boxSizing: "border-box",
                 boxShadow: "0 1px 6px rgba(115,95,95,0.06)",
                 transition: "all 0.2s ease",
                 "&:hover": { transform: "translateY(-2px)" },
@@ -473,7 +515,6 @@ function ProfileSection({ onNav }) {
                   fontSize: { xs: 13, sm: 15 },
                   color: C.muted,
                   fontWeight: 400,
-                  letterSpacing: 0.2,
                 }}
               >
                 {lbl}
@@ -483,6 +524,7 @@ function ProfileSection({ onNav }) {
         ))}
       </Grid>
 
+      {/* ── Info Card ── */}
       <Paper
         variant="outlined"
         sx={{
@@ -490,7 +532,6 @@ function ProfileSection({ onNav }) {
           borderRadius: "13px",
           p: "20px 22px",
           mb: 2.2,
-          boxSizing: "border-box",
           textAlign: "left",
         }}
       >
@@ -501,24 +542,172 @@ function ProfileSection({ onNav }) {
         <InfoRow
           icon={<Person sx={{ fontSize: 15 }} />}
           label="Full Name"
-          value="Yashvi Patel"
+          value={formData.name || "N/A"}
         />
         <InfoRow
           icon={<Email sx={{ fontSize: 15 }} />}
           label="Email"
-          value="yashvi@example.com"
+          value={formData.email || "N/A"}
         />
         <InfoRow
           icon={<Phone sx={{ fontSize: 15 }} />}
           label="Phone"
-          value="+91 98765 43210"
+          value={formData.phone}
         />
         <InfoRow
           icon={<LocationOn sx={{ fontSize: 15 }} />}
           label="Location"
-          value="Ahmedabad, Gujarat"
+          value={formData.location}
         />
       </Paper>
+
+      {/* ── Edit Profile Modal ── */}
+      {open && (
+        <Box
+          sx={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.45)",
+            zIndex: 1300,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            p: 2,
+          }}
+        >
+          <Paper
+            sx={{
+              borderRadius: "16px",
+              p: "28px 28px",
+              width: "100%",
+              maxWidth: 420,
+              background: C.card,
+              boxShadow: "0 24px 64px rgba(115,95,95,0.18)",
+            }}
+          >
+            {/* Modal Header */}
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 2.5,
+              }}
+            >
+              <Typography
+                sx={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: 22,
+                  fontWeight: 500,
+                  color: C.slate,
+                }}
+              >
+                Edit Profile
+              </Typography>
+              <IconButton
+                onClick={() => setOpen(false)}
+                size="small"
+                sx={{ color: C.muted }}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Box>
+
+            <Divider sx={{ borderColor: C.bdr, mb: 2.5 }} />
+
+            {/* Form Fields */}
+            <Stack spacing={2}>
+              {[
+                {
+                  name: "name",
+                  label: "Full Name",
+                  icon: <Person sx={{ fontSize: 16, color: C.muted }} />,
+                },
+                {
+                  name: "email",
+                  label: "Email",
+                  icon: <Email sx={{ fontSize: 16, color: C.muted }} />,
+                },
+                {
+                  name: "phone",
+                  label: "Phone Number",
+                  icon: <Phone sx={{ fontSize: 16, color: C.muted }} />,
+                  placeholder: "e.g. +91 98765 43210",
+                },
+                {
+                  name: "location",
+                  label: "Location",
+                  icon: <LocationOn sx={{ fontSize: 16, color: C.muted }} />,
+                  placeholder: "e.g. Ahmedabad, Gujarat",
+                },
+              ].map((field) => (
+                <TextField
+                  key={field.name}
+                  name={field.name}
+                  label={field.label}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  placeholder={field.placeholder || ""}
+                  size="small"
+                  fullWidth
+                  InputProps={{
+                    startAdornment: <Box sx={{ mr: 1 }}>{field.icon}</Box>,
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "10px",
+                      background: C.bg,
+                      fontSize: 13,
+                      "& fieldset": { borderColor: C.bdr },
+                      "&:hover fieldset": { borderColor: C.sub },
+                      "&.Mui-focused fieldset": { borderColor: C.btn },
+                    },
+                    "& .MuiInputLabel-root.Mui-focused": { color: C.btn },
+                  }}
+                />
+              ))}
+            </Stack>
+
+            {/* Buttons */}
+            <Box sx={{ display: "flex", gap: 1.5, mt: 3 }}>
+              <Button
+                onClick={() => setOpen(false)}
+                fullWidth
+                variant="outlined"
+                sx={{
+                  borderColor: C.bdr,
+                  color: C.muted,
+                  borderRadius: "10px",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: 1,
+                  "&:hover": { borderColor: C.sub, color: C.btn },
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={(e) => handleSave(e)}
+                fullWidth
+                variant="contained" 
+                disabled={saving}
+                sx={{
+                  background: C.btn,
+                  borderRadius: "10px",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: 1,
+                  "&:hover": { background: C.slate },
+                }}
+              >
+                {saving ? "Saving..." : "Save"}
+              </Button>
+            </Box>
+          </Paper>
+        </Box>
+      )}
     </Box>
   );
 }
@@ -1012,6 +1201,9 @@ function SidebarContent({
   onClose,
   showCloseButton = false,
 }) {
+  const userName = localStorage.getItem("userName") || "User Name";
+  const userEmail = localStorage.getItem("userEmail") || "user@example.com";
+  const firstLetter = userName.charAt(0).toUpperCase();
   return (
     <Box
       sx={{
@@ -1062,7 +1254,7 @@ function SidebarContent({
             color: "#fff",
           }}
         >
-          Y
+          {firstLetter}
         </Avatar>
         <Typography
           sx={{
@@ -1072,10 +1264,10 @@ function SidebarContent({
             fontWeight: 600,
           }}
         >
-          Yashvi Patel
+          {userName}
         </Typography>
         <Typography sx={{ fontSize: 11, color: S.textMuted, mt: 0.3 }}>
-          yashvi@example.com
+          {userEmail}
         </Typography>
       </Box>
 
@@ -1302,6 +1494,29 @@ function MobileTopBar({ activeSection, onNav }) {
 // ROOT COMPONENT
 // ═══════════════════════════════════════════════════════════════════════════
 export default function User_profile() {
+  const [userData, setUserData] = useState({
+    name: localStorage.getItem("userName") || "",
+    email: localStorage.getItem("userEmail") || "",
+  });
+
+  useEffect(() => {
+    const handleAuthChange = () => {
+      setUserData({
+        name: localStorage.getItem("userName") || "Guest",
+        email: localStorage.getItem("userEmail") || "guest@example.com",
+      });
+    };
+    window.addEventListener("authChange", handleAuthChange);
+    return () => window.removeEventListener("authChange", handleAuthChange);
+  }, []);
+
+  // 3. firstLetter define karo
+  const firstLetter = userData.name
+    ? userData.name.charAt(0).toUpperCase()
+    : "G";
+
+  // Avatar mate name no first letter kadhva mate:
+
   const [activeSection, setActiveSection] = useState("profile");
   const [trackId, setTrackId] = useState("");
 

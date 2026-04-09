@@ -30,7 +30,7 @@ const border = `1px solid ${slate}44`;
 const images = [
   {
     id: 1,
-    src: "/W_bajoth.png",
+    src: "/W_rumal.png",
     title: "Elegant Wedding",
     category: "Wedding",
     span: { xs: "span 2", md: "span 2" },
@@ -38,7 +38,7 @@ const images = [
   },
   {
     id: 2,
-    src: "/selfie_booth.png",
+    src: "/B_selfie_booth.png",
     title: "Selfie Booth Stand",
     category: "Birthday",
     span: { xs: "span 1", md: "span 1" },
@@ -46,47 +46,39 @@ const images = [
   },
   {
     id: 3,
-    src: "https://i.pinimg.com/1200x/49/02/72/490272a9bade315d76f8eb8e00dad452.jpg",
-    title: "Mini Throne Chair",
-    category: "Birthday",
+    src: "/H_light_holder.png",
+    title: "Light Holder",
+    category: "Housewarming",
     span: { xs: "span 1", md: "span 1" },
     height: { xs: 400, md: 500 },
   },
   {
     id: 4,
-    src: "/B_banner_stand.png",
-    title: "Banner Stand",
+    src: "/C_Ringlight.png",
+    title: "RingLight",
     category: "Corporate",
     span: { xs: "span 2", md: "span 2" },
     height: { xs: 640, md: 500 },
   },
   {
     id: 5,
-    src: "/Ringlight.png",
-    title: "Ringlight",
-    category: "Corporate",
+    src: "/E_floral_hoop.png",
+    title: "Floral hoop",
+    category: "Engagement",
     span: { xs: "span 1", md: "span 1" },
     height: { xs: 500, md: 500 },
   },
   {
     id: 6,
-    src: "https://i.pinimg.com/736x/4a/d0/e8/4ad0e88a6bcac3562f21fdf61368debb.jpg",
-    title: "Hanging Chandeliers",
-    category: "Wedding",
+    src: "H_kalash_stand.png",
+    title: "Kalash stand",
+    category: "HouseWarming",
     span: { xs: "span 1", md: "span 1" },
     height: { xs: 500, md: 500 },
   },
-  // {
-  //   id: 7,
-  //   src: "/kalash_decoration.png",
-  //   title: "Kalash",
-  //   category: "Housewarming",
-  //   span: { xs: "span 1", md: "span 1" },
-  //   height: { xs: 400, md: 500 },
-  // },
 ];
 
-const categories = ["All", "Wedding", "Birthday", "Corporate"];
+const categories = ["All", "Wedding", "Birthday", "Corporate","Engagement","HouseWarming"];
 
 const Gallary = () => {
   const [active, setActive] = useState("All");

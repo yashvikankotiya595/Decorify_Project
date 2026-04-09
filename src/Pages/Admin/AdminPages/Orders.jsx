@@ -283,9 +283,18 @@ export default function Orders() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {BOOKINGS.filter((item) =>
-                      item.product.toLowerCase().includes(search.toLowerCase()),
-                    ).map((row, index) => (
+                    {BOOKINGS.filter((item) => {
+                      const searchTerm = search.toLowerCase();
+                      return (
+                       
+                        item.product.toLowerCase().includes(searchTerm) ||
+                        
+                        item.bookingId
+                          .toString()
+                          .toLowerCase()
+                          .includes(searchTerm)
+                      );
+                    }).map((row, index) => (
                       <TableRow
                         key={index}
                         sx={{
@@ -377,11 +386,12 @@ export default function Orders() {
                               color: row.sClr.tx,
                               fontSize: 12,
                               fontWeight: 700,
-                              px: 1.125,
+                              px: "9px",
                               py: 0.375,
                               borderRadius: 20,
                               display: "inline-block",
                               fontFamily: fontSans,
+                              whiteSpace: "nowrap",
                             }}
                           >
                             {row.status}

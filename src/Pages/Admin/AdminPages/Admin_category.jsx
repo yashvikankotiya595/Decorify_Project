@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Typography, TextField, Button, Grid } from "@mui/material";
 
 const fontSans = "'Montserrat', sans-serif";
 const fontSerif = "'Cormorant Garamond', serif";
@@ -7,6 +7,8 @@ const bg = "#F5EFEc";
 const slate = "#a17a7a";
 const muted = "#735f5f";
 const border = "rgba(196,154,154,0.25)";
+
+const COLOR_OPTIONS = ["#C49A9A", "#7a9ec4", "#7ac47a", "#c4a87a", "#a87ac4"];
 
 const INIT_CATEGORIES = [
   {
@@ -80,15 +82,11 @@ export default function Admin_category() {
 
   const handleEdit = (cat) => {
     setEditingId(cat.id);
-    setForm({ name: cat.name, color: cat.color, description: cat.description });
-    // Mobile: scroll to form
-    setTimeout(
-      () =>
-        document
-          .getElementById("cat-form")
-          ?.scrollIntoView({ behavior: "smooth" }),
-      100,
-    );
+    setForm({
+      name: cat.name,
+      color: cat.color || "#C49A9A",
+      description: cat.description,
+    });
   };
 
   const handleDelete = (id) => {
@@ -105,7 +103,8 @@ export default function Admin_category() {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh" }}>
+    // ── No minHeight here — parent/admin layout handles height ──
+    <Box>
       <style>{`@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600;700&display=swap');`}</style>
 
       {/* ── HEADER ── */}
@@ -116,7 +115,6 @@ export default function Admin_category() {
           fontWeight: 600,
           color: slate,
           lineHeight: 1,
-          textAlign: "left",
         }}
       >
         Categories
@@ -127,8 +125,7 @@ export default function Admin_category() {
           fontSize: { xs: 11, sm: 12 },
           color: muted,
           mt: 0.5,
-          mb: { xs: 2.5, md: 3.5 },
-          textAlign: "left",
+          mb: { xs: 2.5, md: 3 },
         }}
       >
         Manage product categories for your decoration business
@@ -140,7 +137,7 @@ export default function Admin_category() {
           display: "flex",
           gap: { xs: 2, md: 3 },
           alignItems: "flex-start",
-          flexDirection: { xs: "column", md: "row" }, // ← mobile: column, desktop: row
+          flexDirection: { xs: "column", md: "row" },
         }}
       >
         {/* ══ LEFT — Category List ══ */}
@@ -173,34 +170,26 @@ export default function Admin_category() {
                 },
               }}
             >
-              {/* Left — dot + name + count */}
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-                <Box>
-                  <Typography
-                    sx={{
-                      fontFamily: fontSans,
-                      fontSize: { xs: 13, sm: 14 },
-                      fontWeight: 700,
-                      color: slate,
-                      textAlign: "left",
-                    }}
-                  >
-                    {cat.name}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontFamily: fontSans,
-                      fontSize: 11,
-                      color: muted,
-                      textAlign: "left",
-                    }}
-                  >
-                    {cat.count} products
-                  </Typography>
-                </Box>
+              {/* Name + count */}
+              <Box>
+                <Typography
+                  sx={{
+                    fontFamily: fontSans,
+                    fontSize: { xs: 13, sm: 14 },
+                    fontWeight: 700,
+                    color: slate,
+                  }}
+                >
+                  {cat.name}
+                </Typography>
+                <Typography
+                  sx={{ fontFamily: fontSans, fontSize: 11, color: muted }}
+                >
+                  {cat.count} products
+                </Typography>
               </Box>
 
-              {/* Right — Edit + Del */}
+              {/* Edit + Del */}
               <Box sx={{ display: "flex", gap: 0.8, flexShrink: 0 }}>
                 <Button
                   onClick={() => handleEdit(cat)}
@@ -255,34 +244,38 @@ export default function Admin_category() {
           )}
         </Box>
 
-        {/* ══ RIGHT — Form ══ */}
+        {/* ══ RIGHT — Form (sticky, no extra scroll) ══ */}
         <Box
           id="cat-form"
           sx={{
-            width: { xs: "100%", md: 380, lg: 420 },
+            // Fixed width on desktop, full width on mobile
+            width: { xs: "100%", md: 340 },
             flexShrink: 0,
             background: "#fff",
             borderRadius: "16px",
             border: `1px solid ${border}`,
-            p: { xs: 2, sm: 3 },
-            boxShadow: "0 2px 12px rgba(161,122,122,0.08)",
+            p: { xs: 2.5, sm: 3 },
+            boxShadow: "0 4px 20px rgba(161,122,122,0.08)",
+            // Sticky — stays beside list while scrolling
             position: { md: "sticky" },
-            top: { md: 24 },
+            top: { md: 80 }, // 80px = navbar height, adjust as needed
+            // ── KEY: form should NOT create its own scroll ──
+            // It just sizes to its content
           }}
         >
           <Typography
             sx={{
               fontFamily: fontSerif,
-              fontSize: { xs: 20, sm: 24 },
+              fontSize: { xs: 20, sm: 22 },
               fontWeight: 600,
               color: muted,
-              mb: 1.5,
+              mb: 2,
             }}
           >
             {editingId ? "Edit Category" : "Add New Category"}
           </Typography>
 
-          {/* Name */}
+          {/* Category Name */}
           <Box sx={{ mb: 2 }}>
             <Typography
               sx={{
@@ -293,6 +286,7 @@ export default function Admin_category() {
                 textTransform: "uppercase",
                 color: slate,
                 mb: 0.8,
+                textAlign: "left",
               }}
             >
               Category Name
@@ -318,6 +312,7 @@ export default function Admin_category() {
                 textTransform: "uppercase",
                 color: slate,
                 mb: 0.8,
+                textAlign: "left",
               }}
             >
               Description
@@ -349,7 +344,7 @@ export default function Admin_category() {
             />
           </Box>
 
-          {/* Save */}
+          {/* Save button */}
           <Button
             fullWidth
             variant="contained"
@@ -370,7 +365,7 @@ export default function Admin_category() {
             {editingId ? "Update Category" : "Save Category"}
           </Button>
 
-          {/* Cancel */}
+          {/* Cancel — only in edit mode */}
           {editingId && (
             <Button
               fullWidth
@@ -392,6 +387,9 @@ export default function Admin_category() {
             </Button>
           )}
         </Box>
+
+
+        
       </Box>
     </Box>
   );

@@ -23,8 +23,47 @@ const sub = "#C49A9A";
 const muted = "#735f5f";
 const bg = "#F5EFEc";
 const slate = "#a17a7a";
-
 const border = "rgba(196,154,154,0.22)";
+
+const labelStyle = {
+  fontFamily: fontSans,
+  fontSize: "10px",
+  fontWeight: 700,
+  letterSpacing: "0.8px",
+  textTransform: "uppercase",
+  color: slate,
+  mb: 0.8,
+  display: "block",
+};
+
+const inputStyle = {
+  "& .MuiOutlinedInput-root": {
+    fontFamily: fontSans,
+    fontSize: 13,
+    mb:2,
+    borderRadius: "8px",
+    background: bg,
+    "& fieldset": { borderColor: border },
+    "&:hover fieldset": { borderColor: sub },
+    "&.Mui-focused fieldset": { borderColor: sub, borderWidth: "1px" },
+  },
+  "& .MuiInputBase-input": { padding: "10px 14px", color: slate },
+};
+
+const selectStyle = {
+  fontFamily: fontSans,
+  fontSize: 13,
+  borderRadius: "8px",
+  background: bg,
+   mb:2,
+  "& .MuiOutlinedInput-notchedOutline": { borderColor: border },
+  "&:hover .MuiOutlinedInput-notchedOutline": { borderColor: sub },
+  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: sub,
+    borderWidth: "1px",
+  },
+};
+
 const TAGS = ["", "Popular", "Trending", "New", "Premium"];
 const CATEGORIES = [
   "Wedding",
@@ -635,23 +674,11 @@ export default function Product() {
           </Box>
         </DialogTitle>
 
-        <DialogContent sx={{ pt: "20px !important", pb: 1 }}>
-          <Grid container spacing={2}>
-            {/* Name */}
-            <Grid item xs={12} sm={6}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+        <DialogContent sx={{ pt: "24px !important", pb: 1 }}>
+          <Grid container spacing={2.5}>
+            {/* Row 1: Name and Category */}
+            <Grid size={{xs:12,sm:12}}>
+              <Box component="label" sx={labelStyle}>
                 Product Name *
               </Box>
               <TextField
@@ -660,42 +687,10 @@ export default function Product() {
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
                 placeholder="e.g. Flower Arch"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    fontFamily: fontSans,
-                    fontSize: 13,
-                    borderRadius: "8px",
-                    background: bg,
-                    "& fieldset": { borderColor: border },
-                    "&:hover fieldset": { borderColor: sub },
-                    "&.Mui-focused fieldset": {
-                      borderColor: sub,
-                      borderWidth: "1px",
-                    },
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "9px 13px",
-                    color: slate,
-                  },
-                }}
+                sx={inputStyle}
               />
-            </Grid>
-
-            {/* Category */}
-            <Grid item xs={12} sm={6}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+          
+              <Box component="label" sx={labelStyle}>
                 Category
               </Box>
               <Select
@@ -703,20 +698,7 @@ export default function Product() {
                 size="small"
                 value={form.category}
                 onChange={(e) => setForm({ ...form, category: e.target.value })}
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: 13,
-                  borderRadius: "8px",
-                  background: bg,
-                  "& .MuiOutlinedInput-notchedOutline": { borderColor: border },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: sub,
-                  },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: sub,
-                    borderWidth: "1px",
-                  },
-                }}
+                sx={selectStyle}
               >
                 {CATEGORIES.map((c) => (
                   <MenuItem
@@ -728,23 +710,11 @@ export default function Product() {
                   </MenuItem>
                 ))}
               </Select>
-            </Grid>
+           
 
-            {/* Price */}
-            <Grid item xs={6} sm={4}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+            {/* Row 2: Price and Deposit */}
+           
+              <Box component="label" sx={labelStyle}>
                 Price / Day (₹)
               </Box>
               <TextField
@@ -754,42 +724,10 @@ export default function Product() {
                 value={form.price}
                 onChange={(e) => setForm({ ...form, price: e.target.value })}
                 placeholder="1200"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    fontFamily: fontSans,
-                    fontSize: 13,
-                    borderRadius: "8px",
-                    background: bg,
-                    "& fieldset": { borderColor: border },
-                    "&:hover fieldset": { borderColor: sub },
-                    "&.Mui-focused fieldset": {
-                      borderColor: sub,
-                      borderWidth: "1px",
-                    },
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "9px 13px",
-                    color: slate,
-                  },
-                }}
+                sx={inputStyle}
               />
-            </Grid>
-
-            {/* Deposit */}
-            <Grid item xs={6} sm={4}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+          
+              <Box component="label" sx={labelStyle}>
                 Deposit (₹)
               </Box>
               <TextField
@@ -799,42 +737,13 @@ export default function Product() {
                 value={form.deposit}
                 onChange={(e) => setForm({ ...form, deposit: e.target.value })}
                 placeholder="2000"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    fontFamily: fontSans,
-                    fontSize: 13,
-                    borderRadius: "8px",
-                    background: bg,
-                    "& fieldset": { borderColor: border },
-                    "&:hover fieldset": { borderColor: sub },
-                    "&.Mui-focused fieldset": {
-                      borderColor: sub,
-                      borderWidth: "1px",
-                    },
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "9px 13px",
-                    color: slate,
-                  },
-                }}
+                sx={inputStyle}
               />
-            </Grid>
+          
 
-            {/* Qty */}
-            <Grid item xs={6} sm={4}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+            {/* Row 3: Qty and Tag */}
+      
+              <Box component="label" sx={labelStyle}>
                 Qty Available
               </Box>
               <TextField
@@ -844,42 +753,10 @@ export default function Product() {
                 value={form.qty}
                 onChange={(e) => setForm({ ...form, qty: e.target.value })}
                 placeholder="3"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    fontFamily: fontSans,
-                    fontSize: 13,
-                    borderRadius: "8px",
-                    background: bg,
-                    "& fieldset": { borderColor: border },
-                    "&:hover fieldset": { borderColor: sub },
-                    "&.Mui-focused fieldset": {
-                      borderColor: sub,
-                      borderWidth: "1px",
-                    },
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "9px 13px",
-                    color: slate,
-                  },
-                }}
+                sx={inputStyle}
               />
-            </Grid>
-
-            {/* Tag */}
-            <Grid item xs={12} sm={6}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+           
+              <Box component="label" sx={labelStyle}>
                 Tag / Badge
               </Box>
               <Select
@@ -887,20 +764,7 @@ export default function Product() {
                 size="small"
                 value={form.tag}
                 onChange={(e) => setForm({ ...form, tag: e.target.value })}
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: 13,
-                  borderRadius: "8px",
-                  background: bg,
-                  "& .MuiOutlinedInput-notchedOutline": { borderColor: border },
-                  "&:hover .MuiOutlinedInput-notchedOutline": {
-                    borderColor: sub,
-                  },
-                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                    borderColor: sub,
-                    borderWidth: "1px",
-                  },
-                }}
+                sx={selectStyle}
               >
                 {TAGS.map((t) => (
                   <MenuItem
@@ -912,23 +776,11 @@ export default function Product() {
                   </MenuItem>
                 ))}
               </Select>
-            </Grid>
+          
 
-            {/* Image URL */}
-            <Grid item xs={12} sm={6}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+            {/* Row 4: Image URL (Full Width for symmetry or 6 if you prefer) */}
+            
+              <Box component="label" sx={labelStyle}>
                 Image URL
               </Box>
               <TextField
@@ -937,42 +789,13 @@ export default function Product() {
                 value={form.image}
                 onChange={(e) => setForm({ ...form, image: e.target.value })}
                 placeholder="https://..."
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    fontFamily: fontSans,
-                    fontSize: 13,
-                    borderRadius: "8px",
-                    background: bg,
-                    "& fieldset": { borderColor: border },
-                    "&:hover fieldset": { borderColor: sub },
-                    "&.Mui-focused fieldset": {
-                      borderColor: sub,
-                      borderWidth: "1px",
-                    },
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "9px 13px",
-                    color: slate,
-                  },
-                }}
+                sx={inputStyle}
               />
-            </Grid>
+           
 
-            {/* Description */}
-            <Grid item xs={12}>
-              <Box
-                component="label"
-                sx={{
-                  fontFamily: fontSans,
-                  fontSize: "10px",
-                  fontWeight: 700,
-                  letterSpacing: "0.8px",
-                  textTransform: "uppercase",
-                  color: slate,
-                  mb: 0.6,
-                  display: "block",
-                }}
-              >
+            {/* Row 5: Description (Full Width) */}
+            
+              <Box component="label" sx={labelStyle}>
                 Description
               </Box>
               <TextField
@@ -984,46 +807,40 @@ export default function Product() {
                   setForm({ ...form, description: e.target.value })
                 }
                 placeholder="Describe the item, material, dimensions..."
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    fontFamily: fontSans,
-                    fontSize: 13,
-                    borderRadius: "8px",
-                    background: bg,
-                    "& fieldset": { borderColor: border },
-                    "&:hover fieldset": { borderColor: sub },
-                    "&.Mui-focused fieldset": {
-                      borderColor: sub,
-                      borderWidth: "1px",
-                    },
-                  },
-                  "& .MuiInputBase-input": {
-                    padding: "9px 13px",
-                    color: slate,
-                  },
-                }}
+                sx={inputStyle}
               />
             </Grid>
-            <Button
-              onClick={handleAddClick}
-              variant="contained"
-              startIcon={<Add />}
-              sx={{
-                fontFamily: fontSans,
-                fontSize: 11,
-                fontWeight: 700,
-                background: slate,
-                borderRadius: 2.5,
-                px: 2.5,
-                py: 1.1,
-                boxShadow: `0 4px 16px ${slate}55`,
-                "&:hover": { background: muted },
-              }}
-            >
-              Add Product
-            </Button>
           </Grid>
         </DialogContent>
+
+        {/* Submit Button Section */}
+        <Grid
+          item
+          xs={12}
+          sx={{ display: "flex", justifyContent: "center", mt: 3, mb: 3 }}
+        >
+          <Button
+            onClick={handleAddClick}
+            variant="contained"
+            startIcon={<Add />}
+            sx={{
+              fontFamily: fontSans,
+              fontSize: 11,
+              fontWeight: 700,
+              background: slate,
+              borderRadius: 2.5,
+              px: 3, // પેડિંગ વધાર્યું જેથી બટન મોટું અને વ્યવસ્થિત લાગે
+              py: 1.2,
+              boxShadow: `0 4px 16px ${slate}55`,
+              "&:hover": {
+                background: muted,
+                boxShadow: `0 6px 20px ${slate}77`,
+              },
+            }}
+          >
+            {editingId ? "Update Product" : "Add Product"}
+          </Button>
+        </Grid>
       </Dialog>
       {/* ══ FORM DIALOG END ══ */}
     </Box>

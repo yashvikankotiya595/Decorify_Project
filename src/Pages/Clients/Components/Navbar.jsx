@@ -171,7 +171,7 @@ export default function Navbar() {
                             {auth.userEmail}
                           </Typography>
                         </Box>
-                        <MenuItem component={Link} to="/admin" onClick={() => setProfileAnchor(null)}
+                        <MenuItem component={Link} to="/profile" onClick={() => setProfileAnchor(null)}
                           sx={{ fontFamily: subFamily, fontSize: 13, fontWeight: 500, color: mauve, gap: 1.5, py: 1.4, px: 2.5, "&:hover": { background: "#f8f3f1" } }}>
                           <PersonIcon sx={{ fontSize: 18, color: primaryColor }} />
                           My Profile
@@ -220,36 +220,7 @@ export default function Navbar() {
 
             {/* ── 1. TOP: User info OR Login button ── */}
            
-            {/* ── 2. Divider ── */}
-            <Divider sx={{ borderColor: "#f0e8e8" }} />
-
-            {/* ── 3. Nav Links ── */}
-            <List sx={{ flex: 1, py: 0.5 }}>
-              {navItems.map((item) => (
-                <ListItem
-                  button key={item.label}
-                  component={Link} to={item.path}
-                  onClick={() => setDrawerOpen(false)}
-                  sx={{
-                    py: 1.4, px: 2.5,
-                    background: location.pathname === item.path ? `${subcolor}14` : "transparent",
-                    borderLeft: location.pathname === item.path ? `3px solid ${primaryColor}` : "3px solid transparent",
-                    "&:hover": { background: "#f8f3f1" },
-                  }}
-                >
-                  <ListItemText
-                    primary={item.label}
-                    primaryTypographyProps={{
-                      fontFamily: subFamily, fontSize: "12px", fontWeight: 600,
-                      color: location.pathname === item.path ? primaryColor : mauve,
-                      letterSpacing: "0.14em", textTransform: "uppercase",
-                    }}
-                  />
-                </ListItem>
-              ))}
-            </List>
-
-             <Box sx={{ px: 2.5, pt: 3, pb: 2 }}>
+            <Box sx={{ px: 2.5, pt: 3, pb: 2 }}>
               {auth.loggedIn ? (
                 // Logged in — show avatar + name + email card
                 <Box sx={{
@@ -293,6 +264,36 @@ export default function Navbar() {
                 </Button>
               )}
             </Box>
+            {/* ── 2. Divider ── */}
+            <Divider sx={{ borderColor: "#f0e8e8" }} />
+
+            {/* ── 3. Nav Links ── */}
+            <List sx={{ flex: 1, py: 0.5 }}>
+              {navItems.map((item) => (
+                <ListItem
+                  button key={item.label}
+                  component={Link} to={item.path}
+                  onClick={() => setDrawerOpen(false)}
+                  sx={{
+                    py: 1.4, px: 2.5,
+                    background: location.pathname === item.path ? `${subcolor}14` : "transparent",
+                    borderLeft: location.pathname === item.path ? `3px solid ${primaryColor}` : "3px solid transparent",
+                    "&:hover": { background: "#f8f3f1" },
+                  }}
+                >
+                  <ListItemText
+                    primary={item.label}
+                    primaryTypographyProps={{
+                      fontFamily: subFamily, fontSize: "12px", fontWeight: 600,
+                      color: location.pathname === item.path ? primaryColor : mauve,
+                      letterSpacing: "0.14em", textTransform: "uppercase",
+                    }}
+                  />
+                </ListItem>
+              ))}
+            </List>
+
+            
 
 
             {/* ── 4. Divider + 5. Profile/Logout (only if logged in) ── */}
@@ -301,7 +302,7 @@ export default function Navbar() {
                 <Divider sx={{ borderColor: "#f0e8e8" }} />
                 <Box sx={{ px: 2.5, py: 2, display: "flex", flexDirection: "column", gap: 1 }}>
                   <Button
-                    component={Link} to="/admin"
+                    component={Link} to="/profile"
                     onClick={() => setDrawerOpen(false)}
                     fullWidth
                     startIcon={<PersonIcon sx={{ fontSize: 16 }} />}

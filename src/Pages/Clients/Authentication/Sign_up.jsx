@@ -7,7 +7,7 @@ import {
   Button,
   createTheme,
 } from "@mui/material";
-import React from "react";
+import axios from 'axios'
 import { useState } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 // import theme from "./theme";
@@ -56,7 +56,7 @@ const Sign_up = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     let isValid = true;
     const nameRegex = /^[A-Za-z\s]+$/;
 
@@ -104,7 +104,20 @@ const Sign_up = () => {
     }
 
     if (isValid) {
-      console.log("Login details:", { email, password });
+      
+      try{
+        const res = await axios.post("http://localhost:3100/signUp/create",{
+          name,email,password
+        })
+        console.log("saved data",res.data);
+        setName("")
+        setEmail("")
+        setPassword("")
+      }
+      catch (error) {
+        console.log(error);
+        
+      }
     }
   };
 
@@ -321,6 +334,7 @@ const Sign_up = () => {
                   <TextField
                     fullWidth
                     onChange={(e) => setEmail(e.target.value)}
+                     value={email}
                     error={!!emailError}
                     helperText={emailError}
                     placeholder="johndoe@example.com"

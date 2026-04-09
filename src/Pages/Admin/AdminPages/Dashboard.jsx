@@ -14,7 +14,7 @@ import {
   TableRow,
   useMediaQuery,
   createTheme,
-  InputAdornment
+  InputAdornment,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { Search } from "@mui/icons-material";
@@ -138,6 +138,7 @@ export default function Dashboard() {
         xl: 1536,
 
         //custom breakpoints
+        B472: 472,
       },
     },
   });
@@ -325,7 +326,6 @@ export default function Dashboard() {
                     borderRadius: "8px",
                     display: "flex",
                     alignItems: "center",
-                    
                   }}
                 >
                   <TextField
@@ -342,19 +342,22 @@ export default function Dashboard() {
                     }}
                     sx={{
                       width: 200,
-                     "& .MuiOutlinedInput-root": {
-                fontFamily: fontSans,
-                fontSize: 13,
-                borderRadius: "8px",
-                background:  "#F5EFEc",
-                "& fieldset": { borderColor: "rgba(196,154,154,0.22)" },
-                "&:hover fieldset": { borderColor: "#C49A9A" },
-                "&.Mui-focused fieldset": {
-                  borderColor: "#C49A9A",
-                  borderWidth: "1px",
-                },
-              },
-              "& .MuiInputBase-input": { padding: "9px 13px", color: slate },
+                      "& .MuiOutlinedInput-root": {
+                        fontFamily: fontSans,
+                        fontSize: 13,
+                        borderRadius: "8px",
+                        background: "#F5EFEc",
+                        "& fieldset": { borderColor: "rgba(196,154,154,0.22)" },
+                        "&:hover fieldset": { borderColor: "#C49A9A" },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "#C49A9A",
+                          borderWidth: "1px",
+                        },
+                      },
+                      "& .MuiInputBase-input": {
+                        padding: "9px 13px",
+                        color: slate,
+                      },
                     }}
                   />
                 </Box>
@@ -368,6 +371,7 @@ export default function Dashboard() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Customer
@@ -376,6 +380,7 @@ export default function Dashboard() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Product
@@ -385,6 +390,7 @@ export default function Dashboard() {
                           sx={{
                             color: muted,
                             fontWeight: 600,
+                            textAlign: "center",
                           }}
                         >
                           Dates
@@ -394,6 +400,7 @@ export default function Dashboard() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Amount
@@ -402,6 +409,7 @@ export default function Dashboard() {
                         sx={{
                           color: muted,
                           fontWeight: 600,
+                          textAlign: "center",
                         }}
                       >
                         Status
@@ -423,13 +431,14 @@ export default function Dashboard() {
                             sx={{
                               display: "flex",
                               alignItems: "center",
+                              justifyContent: "center",
                               gap: 1,
                             }}
                           >
                             <Typography
                               sx={{
                                 fontSize: 13,
-                                fontWeight: 600,
+
                                 color: slate,
                                 fontFamily: fontSans,
                               }}
@@ -440,14 +449,24 @@ export default function Dashboard() {
                         </TableCell>
 
                         <TableCell
-                          sx={{ fontSize: 13, color: slate, fontWeight: 600 }}
+                          sx={{
+                            fontSize: 13,
+                            color: slate,
+
+                            textAlign: "center",
+                          }}
                         >
                           {row.product}
                         </TableCell>
 
                         {!isMobile && (
                           <TableCell
-                            sx={{ fontSize: 13, color: slate, fontWeight: 600 }}
+                            sx={{
+                              fontSize: 13,
+                              color: slate,
+
+                              textAlign: "center",
+                            }}
                           >
                             {row.dates}
                           </TableCell>
@@ -457,27 +476,29 @@ export default function Dashboard() {
                           <Typography
                             sx={{
                               fontSize: 13,
-                              fontWeight: 600,
+
                               color: slate,
                               fontFamily: fontSans,
+                              textAlign: "center",
                             }}
                           >
                             {row.amount}
                           </Typography>
                         </TableCell>
 
-                        <TableCell>
+                        <TableCell sx={{ textAlign: "center" }}>
                           <Box
                             sx={{
                               background: row.sClr.bg,
                               color: row.sClr.tx,
                               fontSize: 12,
                               fontWeight: 700,
-                              px: 1.125,
+                             px:"9px",
                               py: 0.375,
                               borderRadius: 20,
                               display: "inline-block",
                               fontFamily: fontSans,
+                              whiteSpace: "nowrap",
                             }}
                           >
                             {row.status}

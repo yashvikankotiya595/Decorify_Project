@@ -11,29 +11,29 @@ const btncolor = "#a17a7a";
 
 const items = [
   {
-    img: "/popularimg1.png",
+    img: "/W_flower_arch.png",
     name: "Flower Arch",
     price: "₹1,200 / day",
     deposit: "₹2,000",
   },
   {
-    img: "/popularimg3.png",
-    name: "Kandhi Set",
+    img: "/H_bell_hanging.png",
+    name: "Bell Hanging",
     price: "₹2000 / day",
     deposit: "₹3,000",
   },
   {
-    img: "/popularimg2.png",
-    name: "Decorative Toran",
+    img: "/E_table_center.png",
+    name: "Table center",
     price: "₹500 / day",
     deposit: "₹1,000",
   },
 
   {
-    img: "https://i.pinimg.com/736x/fc/90/e4/fc90e4a741bd66679041c18d2adf872c.jpg",
-    name: "Jute Frame Decor",
-    price: "₹1,500 / day",
-    deposit: "₹2,000",
+    img: "C_table_number.png",
+    name: "Table Number",
+    price: "₹600 / day",
+    deposit: "₹1000",
   },
 ];
 
@@ -190,7 +190,7 @@ const PopularItem = () => {
                         sm: "300px",
                         B700: "350px",
                         B750: "400px",
-                        md: "300px",
+                        md: "350px",
                       },
                       objectFit: "cover",
                       display: "block",

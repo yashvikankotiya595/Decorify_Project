@@ -23,43 +23,43 @@ const categories = [
 const products = [
   {
     id: 1,
-    name: "Floral Bajot",
+    name: "Toran",
     category: "Wedding",
     price: "1200/day",
-    image: "/W_bajoth.png",
+    image: "/W_toran.png",
     tag: "Popular",
   },
   {
     id: 2,
-    name: "Selfie Booth Stand",
-    category: "Birthday",
+    name: "Bell Hanging",
+    category: "Housewarming",
     price: "800/day",
-    image: "/selfie_booth.png",
+    image: "H_bell_hanging.png",
     tag: "Trending",
   },
   {
     id: 3,
-    name: "Mini Throne Chair",
+    name: "Party Tent",
     category: "Birthday",
-    price: "1500/day",
+    price: "1000/day",
     image:
-      "https://i.pinimg.com/1200x/49/02/72/490272a9bade315d76f8eb8e00dad452.jpg",
+      "/B_party_tent.png",
     tag: "",
   },
   {
     id: 4,
     name: "Banner Stand",
-    category: "Corporate",
+    category: "Birthday",
     price: "600/day",
     image: "/B_banner_stand.png",
     tag: "",
   },
   {
     id: 5,
-    name: "Ring Light",
+    name: "Table number",
     category: "Corporate",
     price: "700/day",
-    image: "/Ringlight.png",
+    image: "/C_table_number.png",
     tag: "New",
   },
   {
@@ -68,7 +68,7 @@ const products = [
     category: "Wedding",
     price: "2500/day",
     image:
-      "https://i.pinimg.com/736x/4a/d0/e8/4ad0e88a6bcac3562f21fdf61368debb.jpg",
+      "/W_Hanging Chandeliers.png",
     tag: "Premium",
   },
   {
@@ -76,52 +76,52 @@ const products = [
     name: "Kalash Decoration",
     category: "Housewarming",
     price: "900/day",
-    image: "/kalash_decoration.png",
+    image: "/H_kalash_decoration.png",
     tag: "",
   },
   {
     id: 8,
-    name: "Flower Arch",
-    category: "Wedding",
+    name: "Table Center",
+    category: "Engagement",
     price: "3500/day",
     image:
-      "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&q=80",
+      "/E_table_center.png",
     tag: "Popular",
   },
   {
     id: 9,
-    name: "Balloon Arch",
-    category: "Birthday",
+    name: "Decorative Toran",
+    category: "Engagement",
     price: "1800/day",
     image:
-      "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&q=80",
+      "/E_decorative_toran.jpg",
     tag: "",
   },
   {
     id: 10,
-    name: "Stage Backdrop",
+    name: "Flower centerpieces",
     category: "Corporate",
     price:"4000/day",
     image:
-      "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&q=80",
+      "C_flower_centerpieces.png",
     tag: "Premium",
   },
   {
     id: 11,
-    name: "Welcome Board",
+    name: "Lightholder",
     category: "Housewarming",
-    price: "500/day",
+    price: "800/day",
     image:
-      "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80",
+      "H_light_holder.png",
     tag: "",
   },
   {
     id: 12,
-    name: "Ring Ceremony Setup",
+    name: "Floral hoop",
     category: "Engagement",
     price: "2200/day",
     image:
-      "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80",
+      "/E_Floral_hoop.png",
     tag: "Trending",
   },
 ];
@@ -259,176 +259,190 @@ export default function DecorRental() {
           </Box>
 
           {/* ── Product Grid ── */}
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr", // 0-600px     📱 1 column
-                sm: "1fr 1fr", // 600-900px   📟 2 columns
-                md: "repeat(4, 1fr)",
-              }, // 900px+      🖥️ 4 columns ✅},
-              gap: { xs: 2, md: 3 },
-            }}
-          >
-            {filtered.map((item) => (
-              <Box
-                key={item.id}
-                className="decor-card"
-                sx={{
-                  background: "#fff",
-                  borderRadius: "16px",
-                  border: `1px solid #ecddd8`,
-                  overflow: "hidden",
-                  boxShadow: "0 2px 12px rgba(161,122,122,0.08)",
-                  transition:
-                    "transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s",
-                  "&:hover": {
-                    transform: "translateY(-8px)",
-                    boxShadow: `0 20px 56px ${subcolor}30`,
-                    borderColor: `${subcolor}99`,
-                  },
-                }}
-              >
-                {/* ── Image area ── */}
-                <Box
-                  sx={{
-                    position: "relative",
-                    height: { xs: 170, md: 210 },
-                    overflow: "hidden",
-                    background: "#f5ecea",
-                  }}
-                >
-                  <Box
-                    className="card-img"
-                    component="img"
-                    src={item.image}
-                    alt={item.name}
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      display: "block",
-                      transition: "transform 0.55s ease",
-                    }}
-                  />
+          {/* ── Product Grid ── */}
+<Box
+  sx={{
+    display: "grid",
+    gridTemplateColumns: {
+      xs: "1fr",
+      sm: "1fr 1fr",
+      md: "repeat(4, 1fr)",
+    },
+    gap: { xs: 2, md: 3 },
+  }}
+>
+  {filtered.map((item) => (
+    <Box
+      key={item.id}
+      className="decor-card"
+      sx={{
+        position: "relative",
+        borderRadius: "16px",
+        border: `1px solid #ecddd8`,
+        overflow: "hidden",
+        boxShadow: "0 2px 12px rgba(161,122,122,0.08)",
+        transition: "transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s",
+        aspectRatio: "3/4",
+        "&:hover": {
+          transform: "translateY(-8px)",
+          boxShadow: `0 20px 56px ${subcolor}30`,
+          borderColor: `${subcolor}99`,
+        },
+        "&:hover .card-img": { transform: "scale(1.07)" },
+        "&:hover .card-overlay": { opacity: 1 },
+      }}
+    >
+      {/* ── Full Image ── */}
+      <Box
+        className="card-img"
+        component="img"
+        src={item.image}
+        alt={item.name}
+        sx={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          display: "block",
+          transition: "transform 0.55s ease",
+        }}
+      />
 
-                  {/* Subtle gradient overlay always present */}
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(to top, rgba(115,95,95,0.18) 0%, transparent 60%)",
-                    }}
-                  />
+      {/* Always-on subtle gradient at bottom */}
+      <Box
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to top, rgba(115,95,95,0.18) 0%, transparent 60%)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
 
-                  {/* Tag */}
-                  {item.tag && (
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 10,
-                        left: 10,
-                        background: tagColors[item.tag]?.bg,
-                        color: tagColors[item.tag]?.color,
-                        fontFamily: fontSans,
-                        fontWeight: 600,
-                        fontSize: "10px",
-                        letterSpacing: "0.5px",
-                        px: 1.2,
-                        py: 0.5,
-                        borderRadius: "4px",
-                      }}
-                    >
-                      {item.tag}
-                    </Box>
-                  )}
+      {/* Tag */}
+      {item.tag && (
+        <Box
+          sx={{
+            position: "absolute",
+            top: 10,
+            left: 10,
+            background: tagColors[item.tag]?.bg,
+            color: tagColors[item.tag]?.color,
+            fontFamily: fontSans,
+            fontWeight: 600,
+            fontSize: "10px",
+            letterSpacing: "0.5px",
+            px: 1.2,
+            py: 0.5,
+            borderRadius: "4px",
+            zIndex: 2,
+          }}
+        >
+          {item.tag}
+        </Box>
+      )}
 
-                  {/* Price badge top-right */}
-                </Box>
+      {/* ── Hover Overlay with Details ── */}
+      <Box
+        className="card-overlay"
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to top, rgba(60,30,30,0.93) 0%, rgba(60,30,30,0.6) 45%, transparent 75%)",
+          opacity: 0,
+          transition: "opacity 0.35s ease",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          p: { xs: 2, md: 2.5 },
+          zIndex: 3,
+        }}
+      >
+        {/* Category pill */}
+        <Box
+          sx={{
+            display: "inline-block",
+            alignSelf: "center",
+            background: "rgba(196,154,154,0.25)",
+            color: "#f0cece",
+            fontFamily: fontSans,
+            fontWeight: 500,
+            fontSize: "10px",
+            letterSpacing: "0.8px",
+            textTransform: "uppercase",
+            px: 1,
+            py: 0.3,
+            borderRadius: "3px",
+            mb: 0.8,
+          }}
+        >
+          {item.category}
+        </Box>
 
-                {/* ── Card Body ── */}
-                <Box sx={{ p: { xs: 1.8, md: 2.2 } }}>
-                  {/* Category pill */}
-                  <Box
-                    sx={{
-                      display: "inline-block",
-                      background: `${subcolor}18`,
-                      color: btncolor,
-                      fontFamily: fontSans,
-                      fontWeight: 500,
-                      fontSize: "10px",
-                      letterSpacing: "0.8px",
-                      textTransform: "uppercase",
-                      px: 1,
-                      py: 0.3,
-                      borderRadius: "3px",
-                      mb: 1,
-                    }}
-                  >
-                    {item.category}
-                  </Box>
+        {/* Name */}
+        <Typography
+          sx={{
+            fontFamily: fontSerif,
+            fontWeight: 500,
+            fontSize: { xs: "20px", md: "22px" },
+            color: "#fff",
+            lineHeight: 1.2,
+            mb: 0.5,
+         
+          }}
+        >
+          {item.name}
+        </Typography>
 
-                  {/* Name */}
-                  <Typography
-                    sx={{
-                      fontFamily: fontSerif,
-                      fontWeight: 500,
-                      fontSize: { xs: "16px", md: "19px" },
-                      color: slate,
-                      lineHeight: 1.2,
-                      mb: 2,
-                    }}
-                  >
-                    {item.name}
-                  </Typography>
+        {/* Price */}
+        <Typography
+          sx={{
+            fontFamily: fontSans,
+            fontWeight: 700,
+            fontSize: "15px",
+            color: "#f0cece",
+            mb: 1.5,
+            
+          }}
+        >
+          ₹{item.price}
+        </Typography>
 
-                  <Typography
-                    sx={{
-                      fontFamily: fontSans,
-                      fontWeight: 700,
-                      fontSize: "16px",
-                      color: btncolor,
-                      mb: 1.5,
-                    }}
-                  >
-                    ₹{item.price.toLocaleString()}
-                  </Typography>
-                  {/* ── Book Now Button — always visible ── */}
-                  <Box
-                  component={Link}
-                  to="/rentItem"
-                    sx={{
-                      textDecoration:"none",
-                      display: "block",
-                      width: "100%",
-                      background: btncolor,
-                      color: "#fff",
-                      fontFamily: fontSans,
-                      fontWeight: 600,
-                      fontSize: "11px",
-                      letterSpacing: "1.5px",
-                      textTransform: "uppercase",
-                      textAlign: "center",
-                      py: 1.2,
-                      borderRadius: "8px",
-                      border: `1px solid ${subcolor}55`,
-                      cursor: "pointer",
-                      transition: "all 0.25s ease",
-                      "&:hover": {
-                        background: slate,
-                        color: "#fff",
-                        borderColor: slate,
-                        boxShadow: `0 4px 16px ${btncolor}44`,
-                      },
-                    }}
-                  >
-                    Book Now
-                  </Box>
-                </Box>
-              </Box>
-            ))}
-          </Box>
+        {/* Book Now Button */}
+        <Box
+          component={Link}
+          to="/rentItem"
+          sx={{
+            textDecoration: "none",
+            display: "block",
+            width: "100%",
+            background: btncolor,
+            color: "#fff",
+            fontFamily: fontSans,
+            fontWeight: 600,
+            fontSize: "11px",
+            letterSpacing: "1.5px",
+            textTransform: "uppercase",
+            textAlign: "center",
+            py: 1.2,
+            borderRadius: "8px",
+            border: `1px solid ${subcolor}55`,
+            cursor: "pointer",
+            transition: "all 0.25s ease",
+            "&:hover": {
+              background: slate,
+              borderColor: slate,
+              boxShadow: `0 4px 16px ${btncolor}44`,
+            },
+          }}
+        >
+          Book Now
+        </Box>
+      </Box>
+    </Box>
+  ))}
+</Box>
+
+
 
           {/* Empty state */}
           {filtered.length === 0 && (
